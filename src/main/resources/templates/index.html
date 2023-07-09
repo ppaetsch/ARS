@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Seite</title>
+</head>
+<body>
+<h1>Peer-Feedback-Oriented Audience Response System</h1>
+    <form th:action="@{/login}" method="post">
+        Name eingeben: <input type="text" placeholder="Name eingeben" name="name"><br>
+        Passwort eingeben: <input type="password" placeholder="Passwort eingeben" name="pwd"><br>
+        <input type="submit" value="Login" id="login">
+    </form>
+    <br>
+    <form action="register" method="get">
+        <input type="submit" value="Registrieren" id="register">
+    </form>
+    <br><br><br>
+    <span th:if="${add == true}">Registrierung erfolgreich. Bitte einloggen</span>
+</body>
+</html>
