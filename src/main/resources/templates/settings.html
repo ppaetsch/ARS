@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+</head>
+<body>
+    <h2 style="text-align:center">Einstellungen</h2>
+    <form th:action="@{/password}" method="post">
+        Name eingeben: <input type="text" placeholder="Name eingeben" name="name"><br>
+        Altes Passwort: <input type="password" placeholder="Passwort eingeben" name="oldpwd"><br>
+        Neues Passwort: <input type="password" placeholder="Passwort eingeben" name="newpwd"><br>
+        <Button type="submit" value="Passwort" id="password">Passwort ändern</Button>
+    </form>
+    <br><br><br>
+    <span th:if="${failed == true}">Neues Passwort darf nicht altes Passwort sein</span>
+    <span th:if="${failed2 == true}">Falsches Passwort eingegeben</span>
+</body>
+</html>

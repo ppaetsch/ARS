@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Menu</title>
+</head>
+<body>
+    <table style="width:100%">
+        <tr><td style="text-align:center"><h2><span th:text="${'Herzlich Willkommen ' + name}">Test</span></h2></td> </tr>
+    </table>
+    <form th:action="@{/MainMenu}" method="post">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/session" value="Session starten" name="session" style="width:100%">Session start</button> </td><td style="width:25%"></td>
+            </tr>
+            <tr><td style="height:25%"></td></tr>
+            <tr>
+                <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/data" value="Daten laden" name="data" style="width:100%">Daten</button> </td><td style="width:25%"></td>
+            </tr>
+            <tr><td style="height:25%"></td></tr>
+            <tr>
+                <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/settings" value="Einstellungen" name="settings" style="width:100%">Einstellungen</button> </td><td style="width:25%"></td>
+            </tr>
+            <tr><td style="height:25%"></td></tr>
+            <tr>
+                <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/logout" value="Logout" name="logout" style="width:100%">Logout</button> </td><td style="width:25%"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

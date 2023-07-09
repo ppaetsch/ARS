@@ -13,7 +13,7 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
-    @PostMapping("/login")
+    @PostMapping("/MainMenu")
     public String postLogin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
         if(admin == null){
@@ -25,7 +25,7 @@ public class AdminController {
             if (name.equals(admin.getName())&& pwd.equals(admin.getPassword())){
                 System.out.println("Name: " + admin.getName() + " pwd: " + admin.getPassword());
                 model.addAttribute("name",name);
-                return "login.html";
+                return "mainmenu.html";
             }
             else {
                 model.addAttribute("failed2", true);
