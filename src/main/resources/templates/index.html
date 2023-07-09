@@ -17,5 +17,8 @@
     </form>
     <br><br><br>
     <span th:if="${add == true}">Registrierung erfolgreich. Bitte einloggen</span>
+    <span th:if="${failed == true}" th:text="${'Login fehlgeschlagen, Benutzer ' + name + ' nicht vorhanden'}">Login fehlgeschlagen, Benutzer noch nicht vorhanden</span>
+    <span th:if="${failed2 == true}">Login fehlgeschlagen, falsches Passwort eingegeben</span>
+
 </body>
 </html>
