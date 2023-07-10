@@ -13,7 +13,7 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
-    @PostMapping("/MainMenu")
+    @PostMapping(value = "/MainMenu", params = {"login"})
     public String postLogin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
         if(admin == null){
@@ -57,5 +57,28 @@ public class AdminController {
             return "register.html";
         }
 
+    }
+
+    @PostMapping("/password")
+    public String changePassword(@RequestParam(name="name") String name, @RequestParam(name="oldpwd") String oldpwd, @RequestParam(name="newpwd") String newpwd, Model model){
+        model.addAttribute("name",name);
+        if (oldpwd.equals(newpwd)){
+            model.addAttribute("failed",true);
+            return "settings.html";
+        }
+        else {
+            Admin admin = adminRepository.findByName(name);
+            if (oldpwd.equals(admin.getPassword())){
+                admin.setPassword(newpwd);
+                Admin adminObj = adminRepository.save(admin);
+                model.addAttribute("pwdchanged",true);
+                return "settings.html";
+            }
+            else {
+                model.addAttribute("failed2",true);
+                return "settings.html";
+            }
+
+        }
     }
 }

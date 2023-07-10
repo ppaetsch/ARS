@@ -7,13 +7,19 @@
 <body>
     <h2 style="text-align:center">Einstellungen</h2>
     <form th:action="@{/password}" method="post">
-        Name eingeben: <input type="text" placeholder="Name eingeben" name="name"><br>
+        <input type="hidden" th:value="${name}" name="name">
         Altes Passwort: <input type="password" placeholder="Passwort eingeben" name="oldpwd"><br>
         Neues Passwort: <input type="password" placeholder="Passwort eingeben" name="newpwd"><br>
         <Button type="submit" value="Passwort" id="password">Passwort ändern</Button>
     </form>
-    <br><br><br>
+    <form th:action="@{/MainMenu}" method="post">
+        <input type="hidden" th:value="${name}" name="name">
+        <input type="hidden" name="settings">
+        <Button type="submit" value="Zurück" id="back">Zurück</Button>
+    </form>
+    <br>
     <span th:if="${failed == true}">Neues Passwort darf nicht altes Passwort sein</span>
     <span th:if="${failed2 == true}">Falsches Passwort eingegeben</span>
+    <span th:if="${pwdchanged == true}">Passwort erfolgreich geändert</span>
 </body>
 </html>

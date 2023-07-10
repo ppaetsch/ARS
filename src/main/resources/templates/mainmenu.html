@@ -9,6 +9,7 @@
         <tr><td style="text-align:center"><h2><span th:text="${'Herzlich Willkommen ' + name}">Test</span></h2></td> </tr>
     </table>
     <form th:action="@{/MainMenu}" method="post">
+        <input type="hidden" th:value="${name}" name="name">
         <table style="width:100%;">
             <tr>
                 <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/session" value="Session starten" name="session" style="width:100%">Session start</button> </td><td style="width:25%"></td>
