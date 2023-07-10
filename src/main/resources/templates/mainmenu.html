@@ -12,7 +12,10 @@
         <input type="hidden" th:value="${name}" name="name">
         <table style="width:100%;">
             <tr>
-                <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/session" value="Session starten" name="session" style="width:100%">Session start</button> </td><td style="width:25%"></td>
+                <td style="width:25%"></td><td style="text-align:center;"><input type="text"  name="sessionname" placeholder="Session Name"></td><td style="width:25%"></td>
+            </tr>
+            <tr>
+                <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/session" value="Session starten" name="session" style="width:100%">Session starten</button> </td><td style="width:25%"></td>
             </tr>
             <tr><td style="height:25%"></td></tr>
             <tr>
@@ -27,6 +30,7 @@
                 <td style="width:25%"></td><td style="text-align:center;"><button type="submit" formaction="/MainMenu/logout" value="Logout" name="logout" style="width:100%">Logout</button> </td><td style="width:25%"></td>
             </tr>
         </table>
+        <span th:if="${sessionfailed == true}">Session existiert bereits, bitte neuen Namen vergeben</span>
     </form>
 </body>
 </html>
