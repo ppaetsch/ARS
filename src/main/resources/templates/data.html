@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Data</title>
 </head>
 <body>
-Data
+
+<table border="solid">
+    <tr th:each="card: ${cards}">
+        <td th:text="${card.question}"/>
+        <td th:text="${card.questionUser}"/>
+        <td>
+            <table>
+                <tr th:each="answer: ${card.answers}">
+                    <td th:text="${answer}"/>
+                </tr>
+            </table>
+        </td>
+        <td th:text="${card.answersUser}"/>
+        <td th:text="${card.evaluations}"/>
+        <td th:text="${card.evaluationsUser}"/>
+    </tr>
+
+</table>
 </body>
 </html>

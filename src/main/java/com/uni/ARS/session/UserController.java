@@ -25,10 +25,22 @@ public class UserController {
 
     @PostMapping("/Session/userlogin")
     public String acceptUserLogin(@RequestParam(name="name") String name, @RequestParam(name="sessionname") String sessionname, Model model){
-        ARSSession2 arsSession2 = arsSessionHandler.getSession(sessionname);
+        ARSSession arsSession2 = arsSessionHandler.getSession(sessionname);
         arsSession2.users.add(name);
         model.addAttribute("user", name);
         model.addAttribute("sessionname", sessionname);
         return "userquestion.html";
     }
+
+    @PostMapping("/Session/openAnswer")
+    public String openAnswer(@RequestParam(name="name") String name, Model model){
+        model.addAttribute("user", name);
+        return "useranswer.html";
+    }
+
+    @GetMapping("/Session/openAnswer")
+    public String openGetAnswer(){
+        return "useranswer.html";
+    }
+
 }

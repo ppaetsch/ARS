@@ -1,24 +1,21 @@
 package com.uni.ARS.session;
 
 import com.uni.ARS.admin.Admin;
-import jakarta.persistence.*;
+import com.uni.ARS.cards.QACard;
+import com.uni.ARS.cards.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name="arssessions")
 public class ARSSession {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
     public Admin admin;
     public String name;
-    @Transient
     public List<QACard> cards;
+    public List<String> users = new ArrayList<>();
+    public DataHandler dataHandler;
 
     public ARSSession() {
     }
@@ -27,6 +24,7 @@ public class ARSSession {
         this.admin = admin;
         cards = new ArrayList<>();
         this.name = name;
+        dataHandler = new DataHandler();
     }
 
     public Integer getId() {
@@ -52,4 +50,24 @@ public class ARSSession {
     public void setCards(List<QACard> cards) {
         this.cards = cards;
     }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
+    public void setQuestion(String username, String question){
+        Question question1 = new Question(question, username, this);
+        dataHandler.insertQuestion(question1, name);
+        System.out.println("Hinzufügen erfolgreich Session2");
+    }
+
+
 }

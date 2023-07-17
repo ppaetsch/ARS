@@ -1,17 +1,12 @@
 package com.uni.ARS.cards;
 
 import com.uni.ARS.session.ARSSession;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "questions")
 public class Question {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String question;
     private String questionUser;
-    @ManyToOne
     private ARSSession arsSession;
 
     public Question() {

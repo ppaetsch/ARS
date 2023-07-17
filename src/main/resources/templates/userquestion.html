@@ -10,7 +10,9 @@
         var eventSource = new EventSource(urlEndPoint);
 
         eventSource.addEventListener("name", function(event){
-            console.log(event.data)
+            console.log(event.data);
+            document.getElementById('openAnswer').disabled = false;
+
         })
     })
 </script>
@@ -23,9 +25,10 @@
         Frage eingeben: <input type="text" placeholder="Frage eingeben" name="question"><br>
         <input type="submit" value="Abgeben" id="submitting">
     </form>
-    <form th:action="@{/notifychange}" method="post">
+
+    <form th:action="@{/Session/openAnswer}" method="post">
         <input type="hidden" name="name" th:value="${user}">
-        <button type="submit" value="Eventtrigger" name="event" style="width:100%">Event auslösen</button>
+        <button id="openAnswer" type="submit" value="openAnswer" name="event" style="width:100%" disabled>Antworten öffnen</button>
     </form>
 </body>
 </html>

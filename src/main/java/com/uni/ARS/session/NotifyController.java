@@ -1,6 +1,7 @@
 package com.uni.ARS.session;
 
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@RestController
+@Controller
 public class NotifyController {
 
     public List<SseEmitter> sseEmitterList = new CopyOnWriteArrayList<>();
@@ -25,25 +26,31 @@ public class NotifyController {
         } catch (IOException e){
             e.printStackTrace();
         }
-        //sseEmitter.onCompletion(()-> sseEmitterList.remove(sseEmitter));
+        sseEmitter.onCompletion(()-> sseEmitterList.remove(sseEmitter));
         sseEmitterList.add(sseEmitter);
         return sseEmitter;
     }
 
     @PostMapping(value = "/notifychange")
     public String sendNotification(@RequestParam String name, Model model){
+        sendMessage(name);
         model.addAttribute("name", name);
-        return "userquestion.html";
+        return "adminsession.html";
 
-        /*for (SseEmitter emitter:sseEmitterList){
+
+
+    }
+
+
+    public void sendMessage(String name){
+        for (SseEmitter emitter:sseEmitterList){
             try {
                 emitter.send(SseEmitter.event().name("name").data(name));
             } catch (IOException e){
-                //sseEmitterList.remove(emitter);
+                sseEmitterList.remove(emitter);
                 e.printStackTrace();
             }
-        }*/
-
+        }
     }
 
 
