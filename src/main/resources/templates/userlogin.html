@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+  <form th:action="@{/Session/userlogin}" method="post">
+    Name eingeben: <input type="text" placeholder="Name eingeben" name="name"><br>
+    <input type="hidden" th:value="${sessionname}" name="sessionname">
+    <input type="submit" value="Login" id="login">
+  </form>
+</body>
+</html>

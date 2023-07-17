@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
+    <title>Question</title>
+    <script>
+    $(document).ready(function() {
+        var urlEndPoint = 'http://localhost:8080/notify';
+        var eventSource = new EventSource(urlEndPoint);
+
+        eventSource.addEventListener("name", function(event){
+            console.log(event.data)
+        })
+    })
+</script>
+</head>
+<body>
+
+
+    <form th:action="@{/Session/{path}/userQuestion (path=${sessionname})}" method="post">
+        <input type="hidden" name="name" th:value="${user}">
+        Frage eingeben: <input type="text" placeholder="Frage eingeben" name="question"><br>
+        <input type="submit" value="Abgeben" id="submitting">
+    </form>
+    <form th:action="@{/notifychange}" method="post">
+        <input type="hidden" name="name" th:value="${user}">
+        <button type="submit" value="Eventtrigger" name="event" style="width:100%">Event auslösen</button>
+    </form>
+</body>
+</html>
