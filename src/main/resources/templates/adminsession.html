@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Session</title>
+</head>
+<body>
+<span th:text="${'user: ' + user}">Test</span>
+<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">
+  <button type="submit" value="Session starten" name="sessionstart" style="width:100%">Session start</button>
+</form>
+</body>
+</html>
