@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Answer</title>
+    <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
+    <title>Question</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var ses = /*[[${sessionname}]]*/;
+            console.log(ses);
+        /*]]>*/
+    </script>
+    <script>
+    $(document).ready(function() {
+        var urlEndPoint = 'http://localhost:8080/notify/'+ses;
+        console.log(urlEndPoint);
+        var eventSource = new EventSource(urlEndPoint);
+
+        eventSource.addEventListener("name", function(event){
+            console.log(event.data);
+            document.getElementById('openAnswer').disabled = false;
+
+        })
+    })
+</script>
 </head>
 <body>
-answer
+
+<span th:text="${question}">Question</span>
+<form th:action="@{/Session/{path}/userAnswer (path=${sessionname})}" method="post">
+    <input type="hidden" name="name" th:value="${user}">
+    <input type="text" placeholder="Antwort eingeben" name="answer"><br>
+    <input type="submit" value="Abgeben" id="submitting">
+</form>
+
+<form th:action="@{/Session/openAnswer}" method="post">
+    <input type="hidden" name="name" th:value="${user}">
+    <button id="openAnswer" type="submit" value="openAnswer" name="event" style="width:100%" disabled>Antworten öffnen</button>
+</form>
 </body>
 </html>

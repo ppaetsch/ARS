@@ -2,6 +2,7 @@ package com.uni.ARS.admin;
 
 import com.uni.ARS.cards.QACard;
 import com.uni.ARS.session.ARSSessionHandler;
+import com.uni.ARS.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class AdminSessionController {
 
     @PostMapping(value="/getUserList")
     public String getUserList(@RequestParam (name="sessionname") String sessionname, Model model){
-        List<String> users = arsSessionHandler.getSession(sessionname).getUsers();
+        List<User> users = arsSessionHandler.getSession(sessionname).getAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("sessionname", sessionname);
         return "adminsession.html";

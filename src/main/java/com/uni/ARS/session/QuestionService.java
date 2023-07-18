@@ -12,9 +12,9 @@ public class QuestionService {
 
 
     @Async
-    public void handleQuestion(String sessionname, String username, String question){
+    public void handleQuestion(String sessionname, Integer userId, String username, String question){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Question Service: session " + arsSession.getName());
-        arsSession.setQuestion(username, question);
+        arsSession.setQuestion(userId, username, question);
     }
 }

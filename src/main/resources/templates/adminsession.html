@@ -21,7 +21,8 @@
 
 <table>
     <tr th:each="user:${users}">
-        <td><span th:text="${user}"> User </span></td>
+        <td><span th:text="${user.id}"> UserId </span></td>
+        <td><span th:text="${user.name}"> User </span></td>
     </tr>
 </table>
 

@@ -20,8 +20,6 @@ public class ARSSessionController {
 
     @PostMapping("/Session/admin/{sessionname}/start")
     public String postSessions(@PathVariable String sessionname, Model model){
-        String user = arsSessionHandler.getSession(sessionname).getUsers().get(0);
-        model.addAttribute("user", user);
         model.addAttribute("sessionname", sessionname);
         return "adminsession.html";
     }

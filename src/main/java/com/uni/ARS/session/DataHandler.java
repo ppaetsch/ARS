@@ -23,7 +23,7 @@ public class DataHandler {
     public DataHandler() {
     }
 
-    public void insertQuestion(Question question, String sessionname){
+    public Integer insertQuestion(Question question, String sessionname){
         Integer id = nextQuestionId;
         question.setId(id);
         questions.put(id, question);
@@ -32,6 +32,7 @@ public class DataHandler {
         System.out.println("Hinzufügen erfolgreich DataHandler");
         System.out.println("Länge von cards " + cards.size());
         nextQuestionId++;
+        return id;
     }
 
     public void updateQuestion(Question question){
