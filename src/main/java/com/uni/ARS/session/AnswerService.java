@@ -13,8 +13,9 @@ public class AnswerService {
     public String getQuestion(String sessionname, String username){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Question Service: session " + arsSession.getName());
+        String question = arsSession.getQuestion(username);
         //arsSession.setQuestion(username);
-        return "";
+        return question;
     }
 
 

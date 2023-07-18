@@ -5,10 +5,7 @@ import com.uni.ARS.cards.Evaluation;
 import com.uni.ARS.cards.QACard;
 import com.uni.ARS.cards.Question;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataHandler {
 
@@ -44,4 +41,18 @@ public class DataHandler {
         return new ArrayList<QACard>(cards.values());
     }
 
+    public String getQuestionForUser(String username) {
+        Random random = new Random();
+        for (Integer key : questions.keySet()){
+            System.out.println("Key is: " + key);
+            System.out.println(questions.get(key)==null);
+        }
+
+
+        Integer i = random.nextInt(questions.size());
+        System.out.println("Random: " + questions.size());
+        Question question = questions.get(i);
+        System.out.println(question == null);
+        return question.getQuestion();
+    }
 }

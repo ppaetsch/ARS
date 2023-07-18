@@ -25,15 +25,16 @@
 </head>
 <body>
 
-
-    <form th:action="@{/Session/{path}/userQuestion (path=${sessionname})}" method="post">
+<p>
+    <form style="text-align:center" th:action="@{/Session/{path}/userQuestion (path=${sessionname})}" method="post">
         <input type="hidden" name="name" th:value="${user}">
         <input type="hidden" name="id" th:value="${userId}">
-        Frage eingeben: <input type="text" placeholder="Frage eingeben" name="question"><br>
+        <textarea type="text" style="height:250px"  placeholder="Frage eingeben" name="question"></textarea><br>
         <input type="submit" value="Abgeben" id="submitting">
     </form>
-
-    <form th:action="@{/Session/openAnswer}" method="post">
+</p>
+    <br>
+    <form th:action="@{/Session/{path}/openAnswer (path=${sessionname})}" method="post">
         <input type="hidden" name="name" th:value="${user}">
         <input type="hidden" name="id" th:value="${userId}">
         <button id="openAnswer" type="submit" value="openAnswer" name="event" style="width:100%" disabled>Antworten öffnen</button>

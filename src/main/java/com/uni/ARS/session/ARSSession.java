@@ -74,7 +74,8 @@ public class ARSSession {
     }
 
     public String getQuestion(String username){
-        return "";
+        String question = dataHandler.getQuestionForUser(username);
+        return question;
     }
 
     public List<QACard> getAllCards(){
