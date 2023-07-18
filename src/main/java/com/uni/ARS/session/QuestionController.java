@@ -18,6 +18,7 @@ public class QuestionController {
     public String getQuestion(@PathVariable String sessionname, @RequestParam (name="name") String name, @RequestParam (name="question") String question, Model model){
         System.out.println("sess: " + sessionname + " user: " + name + " q: " + question);
         questionService.handleQuestion(sessionname, name, question);
+        model.addAttribute("user", name);
         return "userquestion.html";
     }
 }

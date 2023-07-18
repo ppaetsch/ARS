@@ -18,6 +18,10 @@ public class Question {
         this.arsSession = arsSession;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

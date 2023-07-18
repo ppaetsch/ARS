@@ -69,5 +69,7 @@ public class ARSSession {
         System.out.println("Hinzufügen erfolgreich Session2");
     }
 
-
+    public List<QACard> getAllCards(){
+        return dataHandler.getAllCardsAsList();
+    }
 }
