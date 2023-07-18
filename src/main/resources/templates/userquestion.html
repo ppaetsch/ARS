@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
     <title>Question</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var ses = /*[[${sessionname}]]*/;
+            console.log(ses);
+        /*]]>*/
+    </script>
     <script>
     $(document).ready(function() {
-        var urlEndPoint = 'http://localhost:8080/notify';
+        var urlEndPoint = 'http://localhost:8080/notify/'+ses;
+        console.log(urlEndPoint);
         var eventSource = new EventSource(urlEndPoint);
 
         eventSource.addEventListener("name", function(event){

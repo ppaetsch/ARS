@@ -6,7 +6,7 @@
 </head>
 <body>
 <span th:text="${'user: ' + user}">Test</span>
-<form th:action="@{/notifychange}" method="post">
+<form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
 <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
     <input type="hidden" value="Answers next" name="name">
   <button type="submit" value="Session starten" name="sessionstart" style="width:100%">Session start</button>
