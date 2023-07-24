@@ -10,8 +10,7 @@ public class Answer {
     private String answerUser;
     private List<Evaluation> evaluationList;
 
-    public Answer(Integer id, String answer, String answerUser) {
-        this.id = id;
+    public Answer(String answer, String answerUser) {
         this.answer = answer;
         this.answerUser = answerUser;
         evaluationList = new ArrayList<>();

@@ -16,6 +16,7 @@ public class DataHandler {
     private Map<Integer, Integer> answerToEvaluations = new HashMap<>();
     private Map<Integer, QACard> cards = new HashMap<>();
     private int nextQuestionId = 0;
+    private int nextAnswerId = 0;
 
     public DataHandler() {
     }
@@ -41,7 +42,7 @@ public class DataHandler {
         return new ArrayList<QACard>(cards.values());
     }
 
-    public String getQuestionForUser(String username) {
+    public Question getQuestionForUser(String username) {
         Random random = new Random();
         for (Integer key : questions.keySet()){
             System.out.println("Key is: " + key);
@@ -51,8 +52,20 @@ public class DataHandler {
 
         Integer i = random.nextInt(questions.size());
         System.out.println("Random: " + questions.size());
+        System.out.println("Randomnr: " + i);
         Question question = questions.get(i);
         System.out.println(question == null);
-        return question.getQuestion();
+        return question;
+    }
+
+    public Integer insertAnswer(Answer answer, Integer qid){
+        Integer id = nextAnswerId;
+        answer.setId(id);
+        answers.put(id, answer);
+
+        cards.get(qid).addToAnswerEvaluationList(answer);
+        System.out.println("Antwort inzufügen erfolgreich DataHandler");
+        nextAnswerId++;
+        return id;
     }
 }

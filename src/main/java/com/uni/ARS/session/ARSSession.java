@@ -1,6 +1,7 @@
 package com.uni.ARS.session;
 
 import com.uni.ARS.admin.Admin;
+import com.uni.ARS.cards.Answer;
 import com.uni.ARS.cards.QACard;
 import com.uni.ARS.cards.Question;
 import com.uni.ARS.user.User;
@@ -70,11 +71,11 @@ public class ARSSession {
         Question question1 = new Question(question, username, this);
         Integer id = dataHandler.insertQuestion(question1, name);
         users.get(userId).getQuestions().add(id);
-        System.out.println("Hinzufügen erfolgreich Session2");
+        System.out.println("Hinzufügen erfolgreich Session");
     }
 
-    public String getQuestion(String username){
-        String question = dataHandler.getQuestionForUser(username);
+    public Question getQuestion(String username){
+        Question question = dataHandler.getQuestionForUser(username);
         return question;
     }
 
@@ -85,5 +86,13 @@ public class ARSSession {
     public List<User> getAllUsers(){
         List<User> userList = new ArrayList<User>(users.values());
         return userList;
+    }
+
+    public void setAnswer(Integer userId, Integer qid, String answer){
+        User user = users.get(userId);
+        Answer answer1 = new Answer(answer, user.getName());
+        Integer id = dataHandler.insertAnswer(answer1, qid);
+        users.get(userId).getAnswers().put(id, qid);
+        System.out.println("Antwort Hinzufügen erfolgreich Session");
     }
 }

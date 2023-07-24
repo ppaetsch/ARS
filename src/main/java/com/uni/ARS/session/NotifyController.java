@@ -47,7 +47,16 @@ public class NotifyController {
     public String sendNotification(@RequestParam String name,@PathVariable String sessionname, Model model){
         sendMessage(name, sessionname);
         model.addAttribute("name", name);
-        return "adminsession.html";
+        if (name.equals("Answers")){
+            return "adminsessionanswers.html";
+        }
+        else if(name.equals("Evaluation")){
+            return "adminsessioneval.html";
+        }
+        else {
+            return "error.html";
+        }
+
     }
 
     public void sendMessage(String name, String session){

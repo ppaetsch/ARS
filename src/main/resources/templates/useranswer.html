@@ -31,6 +31,9 @@
 <p style="text-align:center">
 <form style="text-align:center" th:action="@{/Session/{path}/userAnswer (path=${sessionname})}" method="post">
     <input type="hidden" name="name" th:value="${user}">
+    <input type="hidden" name="id" th:value="${userId}">
+    <input type="hidden" name="question" th:value="${question}">
+    <input type="hidden" name="questionId" th:value="${questionId}">
     <textarea type="text" style="height:250px" placeholder="Antwort eingeben" name="answer"></textarea><br>
     <input type="submit" value="Abgeben" id="submitting">
 </form>

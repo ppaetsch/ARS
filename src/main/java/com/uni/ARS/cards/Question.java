@@ -7,7 +7,7 @@ public class Question {
     private Integer id;
     private String question;
     private String questionUser;
-    private ARSSession arsSession;
+    private ARSSession arsSession; //wahrscheinlich überflüssig
 
     public Question() {
     }

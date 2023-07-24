@@ -1,5 +1,6 @@
 package com.uni.ARS.session;
 
+import com.uni.ARS.cards.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -10,20 +11,20 @@ public class AnswerService {
     @Autowired
     private ARSSessionHandler arsSessionHandler;
 
-    public String getQuestion(String sessionname, String username){
+    public Question getQuestion(String sessionname, String username){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Question Service: session " + arsSession.getName());
-        String question = arsSession.getQuestion(username);
+        Question question = arsSession.getQuestion(username);
         //arsSession.setQuestion(username);
         return question;
     }
 
 
     @Async
-    public void handleAnswer(String sessionname, String username, String question){
+    public void handleAnswer(String sessionname, Integer userId, Integer qid, String answer){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        System.out.println("Question Service: session " + arsSession.getName());
-        //arsSession.setQuestion(username, question);
+        System.out.println("Answer Service: session " + arsSession.getName());
+        arsSession.setAnswer(userId, qid,answer);
     }
 
 }

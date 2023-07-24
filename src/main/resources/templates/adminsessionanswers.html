@@ -2,17 +2,12 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Session</title>
+    <title>Session Answers</title>
 </head>
 <body>
-<form th:action="@{/getUserList}" method="post">
+<form th:action="@{/getAnswers}" method="post">
     <input type="hidden" th:value="${sessionname}" name="sessionname">
-    <button type="submit" value="getUserList" name="userlist" style="width:100%">User Liste abrufen</button>
-</form>
-<br><br>
-<form th:action="@{/getQuestions}" method="post">
-    <input type="hidden" th:value="${sessionname}" name="sessionname">
-    <button type="submit" value="getQuestions" name="questionlist" style="width:100%">Frage Liste abrufen</button>
+    <button type="submit" value="getAnswers" name="answerlist" style="width:100%">Antwort Liste abrufen</button>
 </form>
 <br><br>
 <table style="width:100%">
@@ -25,16 +20,21 @@
 <table style="width:100%">
     <tr th:each="card:${cards}">
         <td style="text-align:center; width:50%"><span th:text="${card.question.question}"> Question </span></td>
-        <td style="text-align:center; width:50%"><span th:text="${card.question.questionUser}"> User </span></td>
+        <td>
+            <table>
+                <tr th:each="answer: ${card.answerEvaluationList}">
+                    <td th:text="${answer.answer}"/>
+                    <td th:text="${answer.answerUser}"/>
+            </table>
+        </td>
     </tr>
 </table>
 <br><br>
 
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
     <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
-    <input type="hidden" value="Answers" name="name">
-    <button type="submit" value="Session starten" name="sessionstart" style="width:100%">Zu Antworten übergehen</button>
+    <input type="hidden" value="Evaluation" name="name">
+    <button type="submit" value="Evaluation" name="evaluation" style="width:100%">Zu Evaluationen übergehen</button>
 </form>
-
 </body>
 </html>

@@ -26,11 +26,20 @@ public class AdminSessionController {
     }
 
     @PostMapping(value="/getQuestions")
-    public String getNumberQuestions(@RequestParam (name="sessionname") String sessionname, Model model){
+    public String getAllQuestions(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
         System.out.println("Länge liste: " + cards.size());
         model.addAttribute("cards", cards);
         model.addAttribute("sessionname", sessionname);
         return "adminsession.html";
+    }
+
+    @PostMapping(value="/getAnswers")
+    public String getAllAnswers(@RequestParam (name="sessionname") String sessionname, Model model){
+        List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
+        System.out.println("Länge liste: " + cards.size());
+        model.addAttribute("cards", cards);
+        model.addAttribute("sessionname", sessionname);
+        return "adminsessionanswers.html";
     }
 }
