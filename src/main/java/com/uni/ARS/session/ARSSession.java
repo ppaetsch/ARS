@@ -2,6 +2,7 @@ package com.uni.ARS.session;
 
 import com.uni.ARS.admin.Admin;
 import com.uni.ARS.cards.Answer;
+import com.uni.ARS.cards.Evaluation;
 import com.uni.ARS.cards.QACard;
 import com.uni.ARS.cards.Question;
 import com.uni.ARS.user.User;
@@ -94,5 +95,25 @@ public class ARSSession {
         Integer id = dataHandler.insertAnswer(answer1, qid);
         users.get(userId).getAnswers().put(id, qid);
         System.out.println("Antwort Hinzufügen erfolgreich Session");
+    }
+
+    public QACard getDataForEvaluation(Integer userId) {
+        User user = users.get(userId);
+        QACard qaCard = dataHandler.getDataForEvaluation(userId);
+        System.out.println("Size of answer list " + qaCard.getAnswerEvaluationMap().size() + "in ARS");
+        return qaCard;
+    }
+
+    public void setEvaluation(Integer userId, Integer questionId, Integer answerId, String evalq, String evala) {
+        User user = users.get(userId);
+        Evaluation answerEvaluation = new Evaluation(evala, user.getName());
+        Integer idAnswer = dataHandler.insertEvaluationAnswer(answerEvaluation, questionId, answerId);
+        users.get(userId).getEvaluationsAnswers().put(idAnswer, answerId);
+        System.out.println("evala in ARS Session");
+
+        Evaluation questionEvaluation = new Evaluation(evalq, user.getName());
+        Integer idQuestion = dataHandler.insertEvaluationQuestion(questionEvaluation, questionId);
+        users.get(userId).getEvaluationsQuestions().put(idQuestion, questionId);
+        System.out.println("evalq in ARS Session");
     }
 }

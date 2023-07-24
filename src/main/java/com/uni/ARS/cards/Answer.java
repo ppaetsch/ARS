@@ -47,4 +47,8 @@ public class Answer {
     public void setEvaluationList(List<Evaluation> evaluationList) {
         this.evaluationList = evaluationList;
     }
+
+    public void addToEvaluationList(Evaluation evaluation){
+        evaluationList.add(evaluation);
+    }
 }

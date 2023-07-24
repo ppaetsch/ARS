@@ -11,12 +11,15 @@ public class DataHandler {
 
     private Map<Integer, Question> questions = new HashMap<>();
     private Map<Integer, Answer> answers = new HashMap<>();
-    private Map<Integer, Evaluation> evaluations = new HashMap<>();
+    private Map<Integer, Evaluation> evaluationsAnswer = new HashMap<>();
+    private Map<Integer, Evaluation> evaluationsQuestion = new HashMap<>();
     private Map<Integer, Integer> questionToAnswers = new HashMap<>();
     private Map<Integer, Integer> answerToEvaluations = new HashMap<>();
     private Map<Integer, QACard> cards = new HashMap<>();
     private int nextQuestionId = 0;
     private int nextAnswerId = 0;
+    private int nextEvaluationAnswerId = 0;
+    private int nextEvaluationQuestionId = 0;
 
     public DataHandler() {
     }
@@ -63,9 +66,43 @@ public class DataHandler {
         answer.setId(id);
         answers.put(id, answer);
 
-        cards.get(qid).addToAnswerEvaluationList(answer);
+        cards.get(qid).getAnswerEvaluationMap().put(answer.getId(),answer);
+
+        questionToAnswers.put(id, qid);
+        //cards.get(qid).addToAnswerEvaluationList(answer);
         System.out.println("Antwort inzufügen erfolgreich DataHandler");
         nextAnswerId++;
+        return id;
+    }
+
+    public QACard getDataForEvaluation(Integer userId) {
+        Random random = new Random();
+        Integer i = random.nextInt(questionToAnswers.size());
+        Integer qid = questionToAnswers.get(i);
+        QACard card = cards.get(qid);
+        QACard qaCard = new QACard(card.getQuestion());
+        Answer answer = card.getAnswerEvaluationMap().get(i);
+        qaCard.getAnswerEvaluationMap().put(0,answer);
+        return qaCard;
+    }
+
+    public Integer insertEvaluationAnswer(Evaluation answerEvaluation, Integer questionId, Integer answerId) {
+        Integer id = nextEvaluationAnswerId;
+        answerEvaluation.setId(id);
+        evaluationsAnswer.put(id, answerEvaluation);
+        cards.get(questionId).getAnswerEvaluationMap().get(answerId).addToEvaluationList(answerEvaluation);
+        System.out.println("Evaluation Antwort inzufügen erfolgreich DataHandler");
+        nextEvaluationAnswerId++;
+        return id;
+    }
+
+    public Integer insertEvaluationQuestion(Evaluation questionEvaluation, Integer questionId){
+        Integer id = nextEvaluationQuestionId;
+        questionEvaluation.setId(id);
+        evaluationsQuestion.put(id, questionEvaluation);
+        cards.get(questionId).addToQuestionEvaluationMap(questionEvaluation);
+        System.out.println("Evaluation Frage inzufügen erfolgreich DataHandler");
+        nextEvaluationQuestionId++;
         return id;
     }
 }

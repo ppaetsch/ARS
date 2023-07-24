@@ -11,7 +11,8 @@ public class User {
     private String name;
     private Set<Integer> questions = new HashSet<>();
     private Map<Integer, Integer> answers = new HashMap<>();
-    private Map<Integer, Integer> evaluations = new HashMap<>();
+    private Map<Integer, Integer> evaluationsAnswers = new HashMap<>();
+    private Map<Integer, Integer> evaluationsQuestions = new HashMap<>();
 
     public User(Integer id, String name) {
         this.id = id;
@@ -50,11 +51,19 @@ public class User {
         this.answers = answers;
     }
 
-    public Map<Integer, Integer> getEvaluations() {
-        return evaluations;
+    public Map<Integer, Integer> getEvaluationsAnswers() {
+        return evaluationsAnswers;
     }
 
-    public void setEvaluations(Map<Integer, Integer> evaluations) {
-        this.evaluations = evaluations;
+    public void setEvaluationsAnswers(Map<Integer, Integer> evaluationsAnswers) {
+        this.evaluationsAnswers = evaluationsAnswers;
+    }
+
+    public Map<Integer, Integer> getEvaluationsQuestions() {
+        return evaluationsQuestions;
+    }
+
+    public void setEvaluationsQuestions(Map<Integer, Integer> evaluationsQuestions) {
+        this.evaluationsQuestions = evaluationsQuestions;
     }
 }

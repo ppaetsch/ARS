@@ -1,20 +1,20 @@
 package com.uni.ARS.cards;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QACard {
 
     private Integer id;
     private Question question;
-    private List<Answer> answerEvaluationList = new ArrayList<>();
+    private Map<Integer, Evaluation> questionEvaluations = new HashMap<>();
+    private Map<Integer, Answer> answerEvaluationMap = new HashMap<>();
     private String arsSession;
 
     public QACard(Question question, Integer id, String arsSession) {
         this.question = question;
         this.id = id;
         this.arsSession = arsSession;
-        answerEvaluationList = new ArrayList<>();
     }
 
     public QACard(Question question) {
@@ -27,18 +27,6 @@ public class QACard {
 
     public void setQuestion(Question question) {
         this.question = question;
-    }
-
-    public List<Answer> getAnswerEvaluationList() {
-        return answerEvaluationList;
-    }
-
-    public void setAnswerEvaluationList(List<Answer> answerEvaluationList) {
-        this.answerEvaluationList = answerEvaluationList;
-    }
-
-    public void addToAnswerEvaluationList(Answer answerEvaluation){
-        answerEvaluationList.add(answerEvaluation);
     }
 
     public Integer getId() {
@@ -55,5 +43,25 @@ public class QACard {
 
     public void setArsSession(String arsSession) {
         this.arsSession = arsSession;
+    }
+
+    public Map<Integer, Evaluation> getQuestionEvaluations() {
+        return questionEvaluations;
+    }
+
+    public void setQuestionEvaluations(Map<Integer, Evaluation> questionEvaluations) {
+        this.questionEvaluations = questionEvaluations;
+    }
+
+    public void addToQuestionEvaluationMap(Evaluation evaluation){
+        questionEvaluations.put(evaluation.getId(), evaluation);
+    }
+
+    public Map<Integer, Answer> getAnswerEvaluationMap() {
+        return answerEvaluationMap;
+    }
+
+    public void setAnswerEvaluationMap(Map<Integer, Answer> answerEvaluationMap) {
+        this.answerEvaluationMap = answerEvaluationMap;
     }
 }

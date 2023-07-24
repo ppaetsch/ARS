@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
     <title>Evaluation</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var ses = /*[[${sessionname}]]*/;
+            console.log(ses);
+        /*]]>*/
+    </script>
+    <script>
+    $(document).ready(function() {
+        var urlEndPoint = 'http://localhost:8080/notify/'+ses;
+        console.log(urlEndPoint);
+        var eventSource = new EventSource(urlEndPoint);
+
+        eventSource.addEventListener("name", function(event){
+            console.log(event.data);
+            document.getElementById('openAnswer').disabled = false;
+
+        })
+    })
+</script>
 </head>
 <body>
 
+<p style="text-align:center"><span th:text="${question}">Question</span></p>
+<p style="text-align:center"><span th:text="${answer}">Answer</span></p>
+<br>
+<p style="text-align:center">
+<form style="text-align:center" th:action="@{/Session/{path}/userEval (path=${sessionname})}" method="post">
+    <input type="hidden" name="name" th:value="${user}">
+    <input type="hidden" name="id" th:value="${userId}">
+    <input type="hidden" name="question" th:value="${question}">
+    <input type="hidden" name="questionId" th:value="${questionId}">
+    <input type="hidden" name="answer" th:value="${answer}">
+    <input type="hidden" name="answerId" th:value="${answerId}">
+    <textarea type="text" style="height:250px" placeholder="Evaluation zu Frage eingeben" name="evalq"></textarea><br>
+    <textarea type="text" style="height:250px" placeholder="Evaluation zu Antwort eingeben" name="evala"></textarea><br>
+    <input type="submit" value="Abgeben" id="submitting">
+</form>
+</p>
+<br>
+<form th:action="@{/Session/openFinal}" method="post">
+    <input type="hidden" name="name" th:value="${user}">
+    <button id="openAnswer" type="submit" value="openFinal" name="event" style="width:100%" disabled>Zusammenfassung öffnen</button>
+</form>
 </body>
 </html>

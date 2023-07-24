@@ -6,8 +6,7 @@ public class Evaluation {
     private String evaluation;
     private String evaluationUser;
 
-    public Evaluation(Integer id, String evaluation, String evaluationUser) {
-        this.id = id;
+    public Evaluation(String evaluation, String evaluationUser) {
         this.evaluation = evaluation;
         this.evaluationUser = evaluationUser;
     }

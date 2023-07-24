@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
-    <title>Question</title>
+    <title>Answer</title>
     <script th:inline="javascript">
         /*<![CDATA[*/
             var ses = /*[[${sessionname}]]*/;
@@ -18,7 +18,7 @@
 
         eventSource.addEventListener("name", function(event){
             console.log(event.data);
-            document.getElementById('openAnswer').disabled = false;
+            document.getElementById('openEval').disabled = false;
 
         })
     })
@@ -26,6 +26,7 @@
 </head>
 <body>
 
+<p style="text-align:center"><span th:text="${sessionname}">Question</span></p>
 <p style="text-align:center"><span th:text="${question}">Question</span></p>
 <br>
 <p style="text-align:center">
@@ -39,9 +40,10 @@
 </form>
 </p>
 <br>
-<form th:action="@{/Session/openAnswer}" method="post">
+<form th:action="@{/Session/{path}/openEval (path=${sessionname})}" method="post">
     <input type="hidden" name="name" th:value="${user}">
-    <button id="openAnswer" type="submit" value="openAnswer" name="event" style="width:100%" disabled>Evaluation öffnen</button>
+    <input type="hidden" name="id" th:value="${userId}">
+    <button id="openEval" type="submit" value="openEval" name="event" style="width:100%" disabled>Evaluation öffnen</button>
 </form>
 </body>
 </html>
