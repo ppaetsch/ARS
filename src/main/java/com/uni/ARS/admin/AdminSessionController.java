@@ -42,4 +42,13 @@ public class AdminSessionController {
         model.addAttribute("sessionname", sessionname);
         return "adminsessionanswers.html";
     }
+
+    @PostMapping(value="/getEvaluations")
+    public String getAllEvaluations(@RequestParam (name="sessionname") String sessionname, Model model){
+        List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
+        System.out.println("Länge liste: " + cards.size());
+        model.addAttribute("cards", cards);
+        model.addAttribute("sessionname", sessionname);
+        return "adminsessioneval.html";
+    }
 }

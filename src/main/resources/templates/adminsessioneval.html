@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Eval</title>
+    <title>Session Evaluations</title>
 </head>
 <body>
-Eval
+<form th:action="@{/getEvaluations}" method="post">
+    <input type="hidden" th:value="${sessionname}" name="sessionname">
+    <button type="submit" value="getEval" name="evallist" style="width:100%">Evaluationen Liste abrufen</button>
+</form>
+
+<table style="width:100%">
+    <tr th:each="card:${cards}">
+        <td style="text-align:center; width:50%"><span th:text="${card.question.question}"> Question </span></td>
+        <td>
+            <table>
+                <tr th:each="evalq: ${card.questionEvaluations}">
+                    <td th:text="${evalq.value.evaluation}"/>
+                    <td th:text="${evalq.value.evaluationUser}"/>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr th:each="answer: ${card.answerEvaluationMap}">
+                    <td th:text="${answer.value.answer}"/>
+                    <td>
+                        <table>
+                            <tr th:each="evala: ${answer.value.evaluationList}">
+                                <td th:text="${evala.evaluation}"/>
+                                <td th:text="${evala.evaluationUser}"/>
+                        </table>
+                    </td>
+            </table>
+        </td>
+    </tr>
+</table>
+<br><br>
+
+<form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
+    <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
+    <input type="hidden" value="Evaluation" name="name">
+    <button type="submit" value="Evaluation" name="evaluation" style="width:100%">Zu Evaluationen übergehen</button>
+</form>
 </body>
 </html>
