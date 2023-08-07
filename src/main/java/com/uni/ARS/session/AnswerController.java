@@ -17,9 +17,14 @@ public class AnswerController {
 
     @PostMapping("/Session/{sessionname}/openAnswer")
     public String openAnswer(@PathVariable String sessionname, @RequestParam (name="id") Integer userId, @RequestParam(name="name") String name, Model model){
-        Question question = answerService.getQuestion(sessionname, name);
-        model.addAttribute("question", question.getQuestion());
-        model.addAttribute("questionId", question.getId());
+        Question question = answerService.getQuestion(sessionname, userId);
+        if (question==null){
+            model.addAttribute("error", true);
+        }
+        else{
+            model.addAttribute("question", question.getValue());
+            model.addAttribute("questionId", question.getId());
+        }
         model.addAttribute("user", name);
         model.addAttribute("userId", userId);
         return "useranswer.html";
@@ -34,9 +39,14 @@ public class AnswerController {
     public String getAnswer(@PathVariable String sessionname,@RequestParam(name="name") String name, @RequestParam (name="questionId") Integer qid, @RequestParam (name="id") Integer userId, @RequestParam (name="answer") String answer, Model model){
         System.out.println("Der User mit ID " + userId + " hat für die Session " + sessionname + " zur Frage " + qid + " die Antwort " + answer + " abgegeben.");
         answerService.handleAnswer(sessionname, userId,qid,answer);
-        Question question = answerService.getQuestion(sessionname, name);
-        model.addAttribute("question", question.getQuestion());
-        model.addAttribute("questionId", question.getId());
+        Question question = answerService.getQuestion(sessionname, userId);
+        if (question==null){
+            model.addAttribute("error", true);
+        }
+        else{
+            model.addAttribute("question", question.getValue());
+            model.addAttribute("questionId", question.getId());
+        }
         model.addAttribute("user", name);
         model.addAttribute("userId", userId);
         return "useranswer.html";

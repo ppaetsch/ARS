@@ -1,10 +1,7 @@
 package com.uni.ARS.session;
 
 import com.uni.ARS.admin.Admin;
-import com.uni.ARS.cards.Answer;
-import com.uni.ARS.cards.Evaluation;
-import com.uni.ARS.cards.QACard;
-import com.uni.ARS.cards.Question;
+import com.uni.ARS.cards.*;
 import com.uni.ARS.user.User;
 
 import java.util.*;
@@ -73,8 +70,9 @@ public class ARSSession {
         System.out.println("Hinzufügen erfolgreich Session");
     }
 
-    public Question getQuestion(String username){
-        Question question = dataHandler.getQuestionForUser(username);
+    public Question getQuestion(Integer userId){
+        User user = users.get(userId);
+        Question question = dataHandler.getQuestionForUser(user);
         return question;
     }
 

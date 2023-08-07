@@ -24,8 +24,8 @@
 
 <table style="width:100%">
     <tr th:each="card:${cards}">
-        <td style="text-align:center; width:50%"><span th:text="${card.question.question}"> Question </span></td>
-        <td style="text-align:center; width:50%"><span th:text="${card.question.questionUser}"> User </span></td>
+        <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
+        <td style="text-align:center; width:50%"><span th:text="${card.question.user}"> User </span></td>
     </tr>
 </table>
 <br><br>

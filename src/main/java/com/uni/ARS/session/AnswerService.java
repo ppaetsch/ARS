@@ -11,10 +11,10 @@ public class AnswerService {
     @Autowired
     private ARSSessionHandler arsSessionHandler;
 
-    public Question getQuestion(String sessionname, String username){
+    public Question getQuestion(String sessionname, Integer userId){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Question Service: session " + arsSession.getName());
-        Question question = arsSession.getQuestion(username);
+        Question question = arsSession.getQuestion(userId);
         //arsSession.setQuestion(username);
         return question;
     }

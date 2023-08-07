@@ -4,6 +4,7 @@ import com.uni.ARS.cards.Answer;
 import com.uni.ARS.cards.Evaluation;
 import com.uni.ARS.cards.QACard;
 import com.uni.ARS.cards.Question;
+import com.uni.ARS.user.User;
 
 import java.util.*;
 
@@ -45,20 +46,37 @@ public class DataHandler {
         return new ArrayList<QACard>(cards.values());
     }
 
-    public Question getQuestionForUser(String username) {
+    public Question getQuestionForUser(User user) {
         Random random = new Random();
+        int tries = 0;
+        while(tries<30){
+            Integer i = random.nextInt(questions.size());
+            System.out.println("Tries: " + i);
+            System.out.println("Contains: " + user.getQuestions().toString());
+            if(!user.getQuestions().contains(i)){
+                Question question = questions.get(i);
+                System.out.println(question == null);
+                return question;
+            }
+            else {
+                System.out.println("Try again");
+            }
+            tries++;
+        }
+
+
         for (Integer key : questions.keySet()){
             System.out.println("Key is: " + key);
             System.out.println(questions.get(key)==null);
         }
 
-
+/*
         Integer i = random.nextInt(questions.size());
         System.out.println("Random: " + questions.size());
         System.out.println("Randomnr: " + i);
         Question question = questions.get(i);
-        System.out.println(question == null);
-        return question;
+        System.out.println(question == null);*/
+        return null;
     }
 
     public Integer insertAnswer(Answer answer, Integer qid){

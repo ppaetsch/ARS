@@ -27,7 +27,8 @@
 <body>
 
 <p style="text-align:center"><span th:text="${sessionname}">Question</span></p>
-<p style="text-align:center"><span th:text="${question}">Question</span></p>
+<p th:if="${error == true}" style="text-align:center">Keine Frage verfügbar</p>
+<p th:unless="${error == true}" style="text-align:center"><span th:text="${question}">Question</span></p>
 <br>
 <p style="text-align:center">
 <form style="text-align:center" th:action="@{/Session/{path}/userAnswer (path=${sessionname})}" method="post">

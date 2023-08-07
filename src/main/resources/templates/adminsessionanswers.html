@@ -19,12 +19,12 @@
 
 <table style="width:100%">
     <tr th:each="card:${cards}">
-        <td style="text-align:center; width:50%"><span th:text="${card.question.question}"> Question </span></td>
+        <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
         <td>
             <table>
                 <tr th:each="answer: ${card.answerEvaluationMap}">
-                    <td th:text="${answer.value.answer}"/>
-                    <td th:text="${answer.value.answerUser}"/>
+                    <td th:text="${answer.value.value}"/>
+                    <td th:text="${answer.value.user}"/>
             </table>
         </td>
     </tr>
