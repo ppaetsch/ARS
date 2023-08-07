@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
+  <title>Results</title>
+  <script th:inline="javascript">
+        /*<![CDATA[*/
+            var ses = /*[[${sessionname}]]*/;
+            console.log(ses);
+        /*]]>*/
+    </script>
+  <script>
+    $(document).ready(function() {
+        var urlEndPoint = 'http://localhost:8080/notify/'+ses;
+        console.log(urlEndPoint);
+        var eventSource = new EventSource(urlEndPoint);
+
+        eventSource.addEventListener("name", function(event){
+            console.log(event.data);
+            document.getElementById('openEval').disabled = false;
+
+        })
+    })
+</script>
+</head>
+<body>
+
+<br>
+<p style="text-align:center">
+<table border="solid" style="width:100%">
+  <tr th:each="card:${cards}">
+    <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
+    <td>
+      <table>
+        <tr th:each="evalq: ${card.questionEvaluations}">
+          <td th:text="${evalq.value.value}"/>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr th:each="answer: ${card.answerEvaluationMap}">
+          <td th:text="${answer.value.value}"/>
+          <td>
+            <table>
+              <tr th:each="evala: ${answer.value.evaluationList}">
+                <td th:text="${evala.value}"/>
+            </table>
+          </td>
+      </table>
+    </td>
+  </tr>
+</table>
+</p>
+<br>
+</body>
+</html>

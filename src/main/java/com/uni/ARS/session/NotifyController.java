@@ -1,5 +1,6 @@
 package com.uni.ARS.session;
 
+import com.uni.ARS.cards.QACard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,11 @@ public class NotifyController {
         }
         else if(name.equals("Evaluation")){
             return "adminsessioneval.html";
+        }
+        else if(name.equals("Results")){
+            List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
+            model.addAttribute("cards", cards);
+            return "adminsessionresults.html";
         }
         else {
             return "error.html";

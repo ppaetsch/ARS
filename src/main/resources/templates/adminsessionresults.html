@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Session Results</title>
+</head>
+<body>
+
+<table style="width:100%">
+  <tr th:each="card:${cards}">
+    <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
+    <td style="text-align:center; width:50%"><span th:text="${card.question.user}"> User </span></td>
+    <td>
+      <table>
+        <tr th:each="evalq: ${card.questionEvaluations}">
+          <td th:text="${evalq.value.value}"/>
+          <td th:text="${evalq.value.user}"/>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr th:each="answer: ${card.answerEvaluationMap}">
+          <td th:text="${answer.value.value}"/>
+          <td th:text="${answer.value.user}"/>
+          <td>
+            <table>
+              <tr th:each="evala: ${answer.value.evaluationList}">
+                <td th:text="${evala.value}"/>
+                <td th:text="${evala.user}"/>
+            </table>
+          </td>
+      </table>
+    </td>
+  </tr>
+</table>
+<br><br>
+
+<form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
+  <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
+  <input type="hidden" value="Results" name="name">
+  <button type="submit" value="Results" name="results" style="width:100%">Zu Zusammenfassung übergehen</button>
+</form>
+</body>
+</html>

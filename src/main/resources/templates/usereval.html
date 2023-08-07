@@ -18,7 +18,7 @@
 
         eventSource.addEventListener("name", function(event){
             console.log(event.data);
-            document.getElementById('openAnswer').disabled = false;
+            document.getElementById('openFinal').disabled = false;
 
         })
     })
@@ -43,9 +43,10 @@
 </form>
 </p>
 <br>
-<form th:action="@{/Session/openFinal}" method="post">
+<form th:action="@{/Session/{path}/openFinal (path=${sessionname})}" method="post">
     <input type="hidden" name="name" th:value="${user}">
-    <button id="openAnswer" type="submit" value="openFinal" name="event" style="width:100%" disabled>Zusammenfassung öffnen</button>
+    <input type="hidden" name="id" th:value="${userId}">
+    <button id="openFinal" type="submit" value="openFinal" name="event" style="width:100%" disabled>Zusammenfassung öffnen</button>
 </form>
 </body>
 </html>

@@ -146,4 +146,8 @@ public class ARSSession {
         System.out.println(state.getNextState());
         state = state.getNextState();
     }
+
+    public List<QACard> getCardsForUser(Integer userId) {
+        return dataHandler.getCardsForUser(users.get(userId));
+    }
 }

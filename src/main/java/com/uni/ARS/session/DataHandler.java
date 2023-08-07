@@ -123,4 +123,16 @@ public class DataHandler {
         nextEvaluationQuestionId++;
         return id;
     }
+
+    public List<QACard> getCardsForUser(User user) {
+        List<QACard> card = new ArrayList<>();
+        for (Integer userQuestion:user.getQuestions()){
+            card.add(cards.get(userQuestion));
+        }
+        List<Integer> userAnswers = new ArrayList<>(user.getAnswers().values());
+        for (Integer userAnswer:userAnswers){
+            card.add(cards.get(userAnswer));
+        }
+        return card;
+    }
 }
