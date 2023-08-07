@@ -15,12 +15,14 @@ public class ARSSessionController {
     @PostMapping("/Session/admin/{sessionname}")
     public String postSession(@PathVariable String sessionname){
         System.out.println("Session " + sessionname + " gestartet");
+        arsSessionHandler.getSession(sessionname).changeState();
         return "adminsession.html";
     }
 
-    @PostMapping("/Session/admin/{sessionname}/start")
+    /*@PostMapping("/Session/admin/{sessionname}/start")
     public String postSessions(@PathVariable String sessionname, Model model){
+        System.out.println("Testing Session start");
         model.addAttribute("sessionname", sessionname);
         return "adminsession.html";
-    }
+    }*/
 }

@@ -15,6 +15,7 @@ public class ARSSession {
     public List<QACard> cards;
     public Map<Integer, User> users = new HashMap<>();
     public DataHandler dataHandler;
+    public SessionState state;
 
     public ARSSession() {
     }
@@ -24,6 +25,7 @@ public class ARSSession {
         cards = new ArrayList<>();
         this.name = name;
         dataHandler = new DataHandler();
+        state = SessionState.START;
         preloadData();
     }
 
@@ -61,6 +63,14 @@ public class ARSSession {
 
     public void setUserList(Map<Integer, User> users) {
         this.users = users;
+    }
+
+    public SessionState getState() {
+        return state;
+    }
+
+    public void setState(SessionState state) {
+        this.state = state;
     }
 
     public void setQuestion(Integer userId, String username, String question){
@@ -129,5 +139,11 @@ public class ARSSession {
             Integer q = rand.nextInt(5);
             setAnswer(u,q,"answer: " + k);
         }
+    }
+
+    public void changeState(){
+        System.out.println(state.toString());
+        System.out.println(state.getNextState());
+        state = state.getNextState();
     }
 }

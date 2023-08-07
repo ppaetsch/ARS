@@ -21,8 +21,10 @@ public class UserController {
     @GetMapping("/Session/{sessionname}")
     public String getUserLogin(@PathVariable String sessionname, Model model){
         if(arsSessionHandler.getArsSessions().containsKey(sessionname)){
-            model.addAttribute("sessionname", sessionname);
-            return "userlogin.html";
+            if(arsSessionHandler.getSession(sessionname).getState().equals(SessionState.START)||arsSessionHandler.getSession(sessionname).getState().equals(SessionState.QUESTION)){
+                model.addAttribute("sessionname", sessionname);
+                return "userlogin.html";
+            }
         }
         return "error.html";
     }
@@ -30,6 +32,9 @@ public class UserController {
     @PostMapping("/Session/userlogin")
     public String acceptUserLogin(@RequestParam(name="name") String name, @RequestParam(name="sessionname") String sessionname, Model model){
         User user = userService.addUser(name, sessionname);
+        if (user == null){
+            return "error.html";
+        }
         model.addAttribute("user", user.getName());
         model.addAttribute("userId", user.getId());
         model.addAttribute("sessionname", sessionname);

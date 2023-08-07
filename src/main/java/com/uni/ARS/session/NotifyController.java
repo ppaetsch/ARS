@@ -1,5 +1,6 @@
 package com.uni.ARS.session;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Controller
 public class NotifyController {
+
+    @Autowired
+    private ARSSessionHandler arsSessionHandler;
 
     public Map<String, List<SseEmitter>> sseEmitterMap = new HashMap<>();
 
@@ -45,6 +49,7 @@ public class NotifyController {
 
     @PostMapping(value = "/notifychange/{sessionname}")
     public String sendNotification(@RequestParam String name,@PathVariable String sessionname, Model model){
+        arsSessionHandler.getSession(sessionname).changeState();
         sendMessage(name, sessionname);
         model.addAttribute("name", name);
         if (name.equals("Answers")){
