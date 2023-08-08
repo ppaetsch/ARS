@@ -1,13 +1,13 @@
 package com.uni.ARS.admin;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name="admins")
+@Document(collection = "admins")
 public class Admin {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Id
+    private Integer id = 0;
     private String name;
     private String password;
 
@@ -15,6 +15,10 @@ public class Admin {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -32,26 +36,4 @@ public class Admin {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    /*
-    @Override
-    public int hashCode(){
-        if(getId() != null){
-            return getId().hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj){
-        if (this==obj) {
-            return true;
-        }
-        if (obj==null){
-            return false;
-        }
-        if (getClass() != obj.getClass()){
-            return false;
-        }
-    }*/
 }

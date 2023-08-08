@@ -13,6 +13,9 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private AdminService adminService;
+
     @PostMapping(value = "/MainMenu", params = {"login"})
     public String postLogin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
@@ -44,9 +47,7 @@ public class AdminController {
     public String addAdmin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
         if(admin == null){
-            Admin admin1 = new Admin();
-            admin1.setName(name);
-            admin1.setPassword(pwd);
+            Admin admin1 = adminService.registerAdmin(name, pwd);
             Admin adminObj = adminRepository.save(admin1);
             model.addAttribute("name",adminObj.getName());
             model.addAttribute("add",true);

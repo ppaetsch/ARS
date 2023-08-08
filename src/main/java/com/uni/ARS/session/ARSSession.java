@@ -124,12 +124,16 @@ public class ARSSession {
     }
 
     public void preloadData(){
-        Random rand = new Random();
+        users.put(0,new User(0,"Test"));
+        setQuestion(0,"Test","Fragentest");
+        setAnswer(0,0,"TestAntwort");
+        setEvaluation(0,0,0,"Evalqtest","evalaTest");
+        /*Random rand = new Random();
         for (Integer i = 5; i < 11; i++){
             users.put(i,new User(i, "User: " + i));
         }
         for (Integer j = 0; j<5; j++){
-            Integer u = rand.nextInt(users.size());
+            Integer u = rand.nextInt(users.size()-1);
             u=u+5;
             setQuestion(u, users.get(u).getName(), "question: " + j);
         }
@@ -138,7 +142,7 @@ public class ARSSession {
             u=u+5;
             Integer q = rand.nextInt(5);
             setAnswer(u,q,"answer: " + k);
-        }
+        }*/
     }
 
     public void changeState(){
