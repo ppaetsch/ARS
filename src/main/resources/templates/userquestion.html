@@ -2,7 +2,7 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <script src="http://localhost:8080/webjars/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
     <title>Question</title>
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -12,13 +12,14 @@
     </script>
     <script>
     $(document).ready(function() {
-        var urlEndPoint = 'http://localhost:8080/notify/'+ses;
+        var urlEndPoint = '/notify/'+ses;
         console.log(urlEndPoint);
         var eventSource = new EventSource(urlEndPoint);
 
         eventSource.addEventListener("name", function(event){
             console.log(event.data);
             document.getElementById('openAnswer').disabled = false;
+            document.getElementById('openAnswer').click();
         })
     })
 </script>
@@ -37,7 +38,7 @@
     <form th:action="@{/Session/{path}/openAnswer (path=${sessionname})}" method="post">
         <input type="hidden" name="name" th:value="${user}">
         <input type="hidden" name="id" th:value="${userId}">
-        <button id="openAnswer" type="submit" value="openAnswer" name="event" style="width:100%" disabled>Antworten öffnen</button>
+        <button id="openAnswer" type="submit" style="display:none;" value="openAnswer" name="event" disabled>Antworten öffnen</button>
     </form>
 </body>
 </html>
