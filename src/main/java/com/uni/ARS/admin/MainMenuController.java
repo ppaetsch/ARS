@@ -1,10 +1,17 @@
 package com.uni.ARS.admin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.uni.ARS.cards.QACard;
+import com.uni.ARS.cards.QACardRepository;
 import com.uni.ARS.session.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainMenuController {
@@ -15,6 +22,11 @@ public class MainMenuController {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private QACardRepository repo;
+
+    private Json json = new Json();
+
     @GetMapping("/MainMenu")
     public String getMainMenu(){
         System.out.println("Start Main Menu");
@@ -22,7 +34,7 @@ public class MainMenuController {
     }
 
     @PostMapping("/MainMenu/session")
-    public String getSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model){
+    public String getSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws JsonProcessingException {
         Admin admin = adminRepository.findByName(name);
         System.out.println("Admin heißt: " + admin.getName());
         model.addAttribute("name", name);
@@ -79,9 +91,19 @@ public class MainMenuController {
         return "mainmenu.html";
     }
 
-    public void createSession(String sessionname, Admin admin){
+    public void createSession(String sessionname, Admin admin) throws JsonProcessingException {
         ARSSession session = new ARSSession(admin, sessionname);
         //ARSSession arsObj = arsSessionRepository.save(session);
         arsSessionHandler.addSession(session);
+        //List<QACard> cards = repo.findAll();
+        //System.out.println("Leere Liste? " + cards.isEmpty());
+        //session.setCards(cards);
+
+        //session.setCards(cards);
+        //List<QACard> cards2 = session.getAllCards();
+        //System.out.println("Leere Liste2? " + cards2.isEmpty());
+        //JsonNode node = json.toJson(cards2.get(0));
+        //repo.save(cards2.get(0));
+        //System.out.println("JSON: " + json.stringify(node));
     }
 }

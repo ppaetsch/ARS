@@ -1,19 +1,34 @@
 package com.uni.ARS.cards;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Document(collection = "cardsDB")
 public class QACard {
 
-    private Integer id;
+    private Integer cardId;
     private Question question;
     private Map<Integer, Evaluation> questionEvaluations = new HashMap<>();
     private Map<Integer, Answer> answerEvaluationMap = new HashMap<>();
     private String arsSession;
 
-    public QACard(Question question, Integer id, String arsSession) {
+    public QACard(){
+
+    }
+
+    public QACard(Integer cardId, Question question, Map<Integer, Evaluation> questionEvaluations, Map<Integer, Answer> answerEvaluationMap, String arsSession) {
+        this.cardId = cardId;
         this.question = question;
-        this.id = id;
+        this.questionEvaluations = questionEvaluations;
+        this.answerEvaluationMap = answerEvaluationMap;
+        this.arsSession = arsSession;
+    }
+
+    public QACard(Question question, Integer cardId, String arsSession) {
+        this.question = question;
+        this.cardId = cardId;
         this.arsSession = arsSession;
     }
 
@@ -30,11 +45,11 @@ public class QACard {
     }
 
     public Integer getId() {
-        return id;
+        return cardId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer cardId) {
+        this.cardId = cardId;
     }
 
     public String getArsSession() {

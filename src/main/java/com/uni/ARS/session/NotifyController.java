@@ -1,6 +1,7 @@
 package com.uni.ARS.session;
 
 import com.uni.ARS.cards.QACard;
+import com.uni.ARS.cards.QACardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class NotifyController {
 
     @Autowired
     private ARSSessionHandler arsSessionHandler;
+
+    @Autowired
+    private QACardRepository repo;
 
     public Map<String, List<SseEmitter>> sseEmitterMap = new HashMap<>();
 
@@ -63,6 +67,14 @@ public class NotifyController {
             List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
             model.addAttribute("cards", cards);
             return "adminsessionresults.html";
+        }
+        else if(name.equals("StoreData")){
+            List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
+            for (QACard card:cards){
+                repo.save(card);
+            }
+            model.addAttribute("name", arsSessionHandler.getSession(sessionname).admin.getName());
+            return "mainmenu.html";
         }
         else {
             return "error.html";

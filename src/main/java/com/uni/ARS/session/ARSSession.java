@@ -74,7 +74,7 @@ public class ARSSession {
     }
 
     public void setQuestion(Integer userId, String username, String question){
-        Question question1 = new Question(question, username, this);
+        Question question1 = new Question(question, username);
         Integer id = dataHandler.insertQuestion(question1, name);
         users.get(userId).getQuestions().add(id);
         System.out.println("Hinzufügen erfolgreich Session");
@@ -124,11 +124,7 @@ public class ARSSession {
     }
 
     public void preloadData(){
-        users.put(0,new User(0,"Test"));
-        setQuestion(0,"Test","Fragentest");
-        setAnswer(0,0,"TestAntwort");
-        setEvaluation(0,0,0,"Evalqtest","evalaTest");
-        /*Random rand = new Random();
+        Random rand = new Random();
         for (Integer i = 5; i < 11; i++){
             users.put(i,new User(i, "User: " + i));
         }
@@ -142,7 +138,7 @@ public class ARSSession {
             u=u+5;
             Integer q = rand.nextInt(5);
             setAnswer(u,q,"answer: " + k);
-        }*/
+        }
     }
 
     public void changeState(){
