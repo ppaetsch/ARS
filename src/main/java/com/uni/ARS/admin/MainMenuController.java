@@ -10,8 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class MainMenuController {
@@ -41,7 +40,10 @@ public class MainMenuController {
         if(admin != null){
             if(!arsSessionHandler.getArsSessions().containsKey(sessionname)){
             //if(arsSessionRepository.findByName(sessionname)==null){
+                //Überprüfen, dass Session auch noch nicht in Datenbank
                 createSession(sessionname, admin);
+                admin.getSessions().add(sessionname);
+                adminRepository.save(admin);
                 model.addAttribute("sessionname", sessionname);
                 return "session.html";
             }
@@ -57,7 +59,11 @@ public class MainMenuController {
     }
 
     @PostMapping("/MainMenu/data")
-    public String getData(Model model){
+    public String getData(@RequestParam(name="name") String name,Model model){
+        Admin admin = adminRepository.findByName(name);
+        Set<String> sessions = admin.getSessions();
+        model.addAttribute("sessions",sessions);
+        model.addAttribute("name",name);
         /*List<String> l1 = new ArrayList<>();
         l1.add("Da");
         l1.add("Da1");

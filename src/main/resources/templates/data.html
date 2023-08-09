@@ -7,21 +7,49 @@
 <body>
 
 <table border="solid">
-    <tr th:each="card: ${cards}">
-        <td th:text="${card.question}"/>
-        <td th:text="${card.questionUser}"/>
-        <td>
-            <table>
-                <tr th:each="answer: ${card.answers}">
-                    <td th:text="${answer}"/>
-                </tr>
-            </table>
-        </td>
-        <td th:text="${card.answersUser}"/>
-        <td th:text="${card.evaluations}"/>
-        <td th:text="${card.evaluationsUser}"/>
+    <tr th:each="ses: ${sessions}">
+        <td th:text="${ses}"/>
     </tr>
 
 </table>
+
+<table style="width:100%">
+    <tr th:each="card:${cards}">
+        <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
+        <td style="text-align:center; width:50%"><span th:text="${card.question.user}"> User </span></td>
+        <td>
+            <table>
+                <tr th:each="evalq: ${card.questionEvaluations}">
+                    <td th:text="${evalq.value.value}"/>
+                    <td th:text="${evalq.value.user}"/>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr th:each="answer: ${card.answerEvaluationMap}">
+                    <td th:text="${answer.value.value}"/>
+                    <td th:text="${answer.value.user}"/>
+                    <td>
+                        <table>
+                            <tr th:each="evala: ${answer.value.evaluationList}">
+                                <td th:text="${evala.value}"/>
+                                <td th:text="${evala.user}"/>
+                        </table>
+                    </td>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<form th:action="@{/Data/getData}" method="post">
+    <input type="hidden" th:value="${name}" name="name">
+    <input type="text"  name="sessionname" placeholder="Session Name">
+    <Button type="submit" value="getData" id="getData">Daten laden</Button>
+</form>
+<form th:action="@{/Data/deleteData}" method="post">
+    <input type="hidden" th:value="${name}" name="name">
+    <input type="text"  name="sessionname" placeholder="Session Name">
+    <Button type="submit" value="deleteData" id="deleteData">Daten löschen</Button>
+</form>
 </body>
 </html>
