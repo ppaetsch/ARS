@@ -1,8 +1,11 @@
 package com.uni.ARS.admin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.uni.ARS.cards.QACard;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.uni.ARS.cards.QACardRepository;
 import com.uni.ARS.session.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Set;
 
 @Controller
 public class MainMenuController {
+
+    int qrcodecounter = 0;
 
     @Autowired
     private ARSSessionHandler arsSessionHandler;
@@ -33,7 +43,7 @@ public class MainMenuController {
     }
 
     @PostMapping("/MainMenu/session")
-    public String getSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws JsonProcessingException {
+    public String getSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws IOException, WriterException {
         Admin admin = adminRepository.findByName(name);
         System.out.println("Admin heißt: " + admin.getName());
         model.addAttribute("name", name);
@@ -45,6 +55,19 @@ public class MainMenuController {
                 admin.getSessions().add(sessionname);
                 adminRepository.save(admin);
                 model.addAttribute("sessionname", sessionname);
+                BufferedImage img = createQRCodeForSession(sessionname, "./src/main/resources/static/qrcodes/");
+                String qrcodename = "QRCode" + Integer.toString(qrcodecounter-1) + ".png";
+                System.out.println(qrcodename);
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                String encoded;
+                try{
+                    ImageIO.write(img, "png", os);
+                    encoded = Base64.getEncoder().encodeToString(os.toByteArray());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                model.addAttribute("encoded", encoded);
+                model.addAttribute("qrcodename", qrcodename);
                 return "session.html";
             }
             else {
@@ -58,25 +81,22 @@ public class MainMenuController {
         }
     }
 
+    private BufferedImage createQRCodeForSession(String sessionname, String path) throws WriterException, IOException {
+        String barcode = "http://192.168.178.46:8080/Session/" + sessionname;
+        path = path + "QRCode" + Integer.toString(qrcodecounter) + ".png";
+        System.out.println(path);
+        qrcodecounter++;
+        QRCodeWriter writer = new QRCodeWriter();
+        BitMatrix bitMatrix = writer.encode(barcode, BarcodeFormat.QR_CODE,500,500);
+        return MatrixToImageWriter.toBufferedImage(bitMatrix);
+    }
+
     @PostMapping("/MainMenu/data")
     public String getData(@RequestParam(name="name") String name,Model model){
         Admin admin = adminRepository.findByName(name);
         Set<String> sessions = admin.getSessions();
         model.addAttribute("sessions",sessions);
         model.addAttribute("name",name);
-        /*List<String> l1 = new ArrayList<>();
-        l1.add("Da");
-        l1.add("Da1");
-        List<String> l2 = new ArrayList<>();
-        l2.add("Dort");
-        l2.add("Dort1");
-        l2.add("Dort2");
-        QACard qaCard = new QACard("Wo?","Huber",l1, "Leo", "Gut", "Melanie");
-        QACard qaCard2 = new QACard("Wo1?","Huber1",l2, "Leo1", "Gut1", "Melanie1");
-        List<QACard> qaCardList = new ArrayList<>();
-        qaCardList.add(qaCard);
-        qaCardList.add(qaCard2);
-        model.addAttribute("cards", qaCardList);*/
         return "data.html";
     }
 
