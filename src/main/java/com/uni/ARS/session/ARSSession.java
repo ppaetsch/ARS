@@ -26,7 +26,7 @@ public class ARSSession {
         this.name = name;
         dataHandler = new DataHandler();
         state = SessionState.START;
-        preloadData();
+        //preloadData();
     }
 
     public Integer getId() {
@@ -121,24 +121,6 @@ public class ARSSession {
         Integer idQuestion = dataHandler.insertEvaluationQuestion(questionEvaluation, questionId);
         users.get(userId).getEvaluationsQuestions().put(idQuestion, questionId);
         System.out.println("evalq in ARS Session");
-    }
-
-    public void preloadData(){
-        Random rand = new Random();
-        for (Integer i = 5; i < 11; i++){
-            users.put(i,new User(i, "User: " + i));
-        }
-        for (Integer j = 0; j<5; j++){
-            Integer u = rand.nextInt(users.size()-1);
-            u=u+5;
-            setQuestion(u, users.get(u).getName(), "question: " + j);
-        }
-        for (Integer k = 0; k<10; k++){
-            Integer u = rand.nextInt(users.size());
-            u=u+5;
-            Integer q = rand.nextInt(5);
-            setAnswer(u,q,"answer: " + k);
-        }
     }
 
     public void changeState(){

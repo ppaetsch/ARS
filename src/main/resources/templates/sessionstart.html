@@ -4,7 +4,7 @@
 <body th:insert="headline :: headline"></body>
 <body>
 <table style="width:100%">
-    <tr><td style="text-align:center"><h2><span th:text="${'Herzlich Willkommen ' + name}">Test</span></h2></td> </tr>
+    <tr><td style="text-align:center"><h2>Erstellen einer Session</h2></td> </tr>
 </table>
 <form th:action="@{/SessionCreate}" method="post">
     <input type="hidden" th:value="${name}" name="name">

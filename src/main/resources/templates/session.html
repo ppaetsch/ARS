@@ -4,7 +4,7 @@
 <body th:insert="headline :: headline"></body>
 <body>
     <table style="width:100%">
-        <tr><td style="text-align:center"><h2><span th:text="${'http://localhost:8080/Session/' + sessionname}">Test</span></h2></td></tr>
+        <tr><td style="text-align:center"><h2><span th:text="${sessionurl}">Test</span></h2></td></tr>
     </table>
     <br>
     <img th:src="@{'data:image/png;base64,'+${encoded}}"/>

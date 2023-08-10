@@ -25,8 +25,6 @@ import java.util.Set;
 @Controller
 public class MainMenuController {
 
-    int qrcodecounter = 0;
-
     @Autowired
     private ARSSessionHandler arsSessionHandler;
 
@@ -69,9 +67,8 @@ public class MainMenuController {
                 admin.getSessions().add(sessionname);
                 adminRepository.save(admin);
                 model.addAttribute("sessionname", sessionname);
-                BufferedImage img = createQRCodeForSession(sessionname, "./src/main/resources/static/qrcodes/");
-                String qrcodename = "QRCode" + Integer.toString(qrcodecounter-1) + ".png";
-                System.out.println(qrcodename);
+                String sessionurl = "http://syseraud.eu-central-1.elasticbeanstalk.com/Session/" + sessionname;
+                BufferedImage img = createQRCodeForSession(sessionurl);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 String encoded;
                 try{
@@ -81,27 +78,23 @@ public class MainMenuController {
                     throw new RuntimeException(e);
                 }
                 model.addAttribute("encoded", encoded);
-                model.addAttribute("qrcodename", qrcodename);
+                model.addAttribute("sessionurl", sessionurl);
                 return "session.html";
             }
             else {
-                model.addAttribute("sessionfailed", true);
-                return "mainmenu.html";
+                model.addAttribute("sessionfailed", true);;
             }
         }
         else {
             System.out.println("Admin nicht gefunden");
-            return "mainmenu.html";
+
         }
+        return "sessionstart.html";
     }
 
-    private BufferedImage createQRCodeForSession(String sessionname, String path) throws WriterException, IOException {
-        String barcode = "http://192.168.178.46:8080/Session/" + sessionname;
-        path = path + "QRCode" + Integer.toString(qrcodecounter) + ".png";
-        System.out.println(path);
-        qrcodecounter++;
+    private BufferedImage createQRCodeForSession(String sessionurl) throws WriterException {
         QRCodeWriter writer = new QRCodeWriter();
-        BitMatrix bitMatrix = writer.encode(barcode, BarcodeFormat.QR_CODE,500,500);
+        BitMatrix bitMatrix = writer.encode(sessionurl, BarcodeFormat.QR_CODE,500,500);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
