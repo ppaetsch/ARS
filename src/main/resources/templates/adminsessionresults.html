@@ -3,10 +3,8 @@
 <head th:insert="header :: head"></head>
 <body th:insert="headline :: headline"></body>
 <body>
-<div class="table-responsive">
-  <table class="table table-bordered">
-    <tbody>
-    <tr th:each="card:${cards}">
+
+    <th:block th:each="card:${cards}">
       <table class="table table-bordered">
         <tr>
           <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
@@ -41,10 +39,8 @@
           </td>
         </tr>
       </table>
-    </tr>
-    </tbody>
-  </table>
-</div>
+    </th:block>
+
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
   <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
   <input type="hidden" value="StoreData" name="name">

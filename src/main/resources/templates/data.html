@@ -15,60 +15,62 @@
 
 </table>
 </div>
-<div class="table-responsive">
-<table class="table table-bordered">
-    <tbody>
-    <tr th:each="card:${cards}">
-        <table class="table table-bordered">
-            <tr>
-            <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
-            <td style="text-align:center; width:20%"><span th:text="${card.question.user}"> User </span></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <table class="table table-bordered">
-                        <tr th:each="evalq: ${card.questionEvaluations}">
-                            <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
-                            <td style="text-align:center; width:20%" th:text="${evalq.value.user}"/>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <table class="table table-bordered">
-                        <tr th:each="answer: ${card.answerEvaluationMap}">
-                            <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
-                            <td style="text-align:center; width:10%" th:text="${answer.value.user}"/>
-
-                            <td style="text-align:center; width:50%">
-                                <table class="table table-bordered">
-                                    <tr th:each="evala: ${answer.value.evaluationList}">
-                                        <td style="text-align:center; width:80%"th:text="${evala.value}"/>
-                                        <td style="text-align:center; width:20%" th:text="${evala.user}"/>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </tr>
-    </tbody>
-</table>
-</div>
 <div class="center">
-<form th:action="@{/Data/getData}" method="post">
-    <input type="hidden" th:value="${name}" name="name">
-    <input type="text"  name="sessionname" placeholder="Session Name">
-    <Button type="submit" value="getData" id="getData">Daten laden</Button>
-</form>
-<form th:action="@{/Data/deleteData}" method="post">
-    <input type="hidden" th:value="${name}" name="name">
-    <input type="text"  name="sessionname" placeholder="Session Name">
-    <Button type="submit" value="deleteData" id="deleteData">Daten loeschen</Button>
-</form>
+    <form th:action="@{/Data/getData}" method="post">
+        <input type="hidden" th:value="${name}" name="name">
+        <input type="text"  name="sessionname" placeholder="Session Name">
+        <Button type="submit" value="getData" id="getData">Daten laden</Button>
+    </form>
+    <form th:action="@{/Data/deleteData}" method="post">
+        <input type="hidden" th:value="${name}" name="name">
+        <input type="text"  name="sessionname" placeholder="Session Name">
+        <Button type="submit" value="deleteData" id="deleteData">Daten loeschen</Button>
+    </form>
 </div>
+
+    <th:block th:each="card:${cards}">
+        <div class="card card-body">
+        <table class="table table-bordered">
+                <div class="card-text">
+                    <tr>
+                        <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
+                        <td style="text-align:center; width:20%"><span th:text="${card.question.user}"> User </span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table class="table table-bordered">
+                                <tr th:each="evalq: ${card.questionEvaluations}">
+                                    <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
+                                    <td style="text-align:center; width:20%" th:text="${evalq.value.user}"/>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table class="table table-bordered">
+                                <tr th:each="answer: ${card.answerEvaluationMap}">
+                                    <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
+                                    <td style="text-align:center; width:10%" th:text="${answer.value.user}"/>
+
+                                    <td style="text-align:center; width:50%">
+                                        <table class="table table-bordered">
+                                            <tr th:each="evala: ${answer.value.evaluationList}">
+                                                <td style="text-align:center; width:80%"th:text="${evala.value}"/>
+                                                <td style="text-align:center; width:20%" th:text="${evala.user}"/>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </div>
+            </table>
+        </div>
+    </th:block>
+
+
+
 </body>
 <body th:insert="footer :: footer"></body>
 </html>
