@@ -57,7 +57,6 @@ public class AdminController {
             model.addAttribute("failed",true);
             return "register.html";
         }
-
     }
 
     @PostMapping("/password")

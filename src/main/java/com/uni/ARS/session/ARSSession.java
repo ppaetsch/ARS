@@ -26,7 +26,6 @@ public class ARSSession {
         this.name = name;
         dataHandler = new DataHandler();
         state = SessionState.START;
-        //preloadData();
     }
 
     public Integer getId() {

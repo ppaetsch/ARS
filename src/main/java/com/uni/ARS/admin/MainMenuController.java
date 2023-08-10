@@ -40,8 +40,6 @@ public class MainMenuController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    private Json json = new Json();
-
     @GetMapping("/MainMenu")
     public String getMainMenu(){
         System.out.println("Start Main Menu");
@@ -61,7 +59,6 @@ public class MainMenuController {
         model.addAttribute("name", name);
         if(admin != null){
             List<String> ses = mongoTemplate.query(Session.class).distinct("name").as(String.class).all();
-            System.out.println(ses.size() + " länge der Liste");
             if(!ses.contains(sessionname)){
                 createSession(sessionname, admin);
                 admin.getSessions().add(sessionname);

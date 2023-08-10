@@ -9,21 +9,11 @@ import java.util.Set;
 @Document(collection = "admins")
 public class Admin {
 
-    @Id
-    private Integer id = 0;
     private String name;
     private String password;
     private Set<String> sessions = new HashSet<>();
 
     public Admin(){}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
