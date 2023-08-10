@@ -5,7 +5,10 @@
     <nav class="navbar fixed-bottom bg-body-tertiary bg-dark border-body" data-bs-theme="dark">
       <div class="container-fluid">
       <div class="text-white">Syseraud</div>
-      <a class="navbar brand" href="@{/impressum.html}">Impressum</a>
+      <div class="nav pull-right">
+      <form th:action="@{/openImpressum}" method="get">
+          <button id="openImpressum" type="submit" value="openImpressum" name="openImpressum">Impressum</button></div>
+      </form>
       </div>
     </nav>
 

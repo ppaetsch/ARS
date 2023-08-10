@@ -131,6 +131,11 @@ public class MainMenuController {
         return "mainmenu.html";
     }
 
+    @GetMapping("/openImpressum")
+    public String openImpressum(){
+        return "impressum.html";
+    }
+
     public void createSession(String sessionname, Admin admin) throws JsonProcessingException {
         ARSSession session = new ARSSession(admin, sessionname);
         arsSessionHandler.addSession(session);
