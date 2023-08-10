@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrierung</title>
-</head>
+<head th:replace="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <body>
+<div>
 <form action="register" method="post">
     Name eingeben: <input type="text" placeholder="Name eingeben" name="name"><br>
     Passwort eingeben: <input type="password" placeholder="Passwort eingeben" name="pwd"><br>
     <input type="submit" value="Registrieren" id="register">
     <span th:if="${failed == true}">Login fehlgeschlagen, Nutzer bereits vorhanden. Bitte anderen Namen verwenden</span>
 </form>
+</div>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

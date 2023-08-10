@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Session</title>
-</head>
+<head th:replace="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <body>
     <table style="width:100%">
         <tr><td style="text-align:center"><h2><span th:text="${'http://localhost:8080/Session/' + sessionname}">Test</span></h2></td></tr>
@@ -15,4 +13,5 @@
         <button type="submit" value="Session starten" name="sessionstart" style="width:100%">Session start</button>
     </form>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

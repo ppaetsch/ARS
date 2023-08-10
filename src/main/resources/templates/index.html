@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Seite</title>
-</head>
+<head th:replace="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <body>
 <table style="width:100%">
-<tr><td style="text-align:center"><h1>Peer-Feedback-Oriented Audience Response System</h1></td></tr>
+    <tr><td style="text-align:center"><h1>Syseraud</h1></td></tr>
+    <tr><td style="text-align:center"><h3>Peer-Feedback-Oriented Audience Response System</h3></td></tr>
 </table>
 <table style="width:100%">
     <tr></tr>
@@ -26,4 +25,5 @@
     <span th:if="${failed == true}" th:text="${'Login fehlgeschlagen, Benutzer ' + name + ' nicht vorhanden'}">Login fehlgeschlagen, Benutzer noch nicht vorhanden</span>
     <span th:if="${failed2 == true}">Login fehlgeschlagen, falsches Passwort eingegeben</span>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

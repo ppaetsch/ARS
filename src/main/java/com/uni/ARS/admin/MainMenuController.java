@@ -43,7 +43,13 @@ public class MainMenuController {
     }
 
     @PostMapping("/MainMenu/session")
-    public String getSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws IOException, WriterException {
+    public String getSession(@RequestParam(name="name") String name,Model model){
+        model.addAttribute("name",name);
+        return "sessionstart.html";
+    }
+
+    @PostMapping("/SessionCreate")
+    public String createSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws IOException, WriterException {
         Admin admin = adminRepository.findByName(name);
         System.out.println("Admin heißt: " + admin.getName());
         model.addAttribute("name", name);

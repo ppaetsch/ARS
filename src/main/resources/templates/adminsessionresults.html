@@ -1,44 +1,55 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Session Results</title>
-</head>
+<head th:insert="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <body>
-
-<table style="width:100%">
-  <tr th:each="card:${cards}">
-    <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
-    <td style="text-align:center; width:50%"><span th:text="${card.question.user}"> User </span></td>
-    <td>
-      <table>
-        <tr th:each="evalq: ${card.questionEvaluations}">
-          <td th:text="${evalq.value.value}"/>
-          <td th:text="${evalq.value.user}"/>
-      </table>
-    </td>
-    <td>
-      <table>
-        <tr th:each="answer: ${card.answerEvaluationMap}">
-          <td th:text="${answer.value.value}"/>
-          <td th:text="${answer.value.user}"/>
-          <td>
-            <table>
-              <tr th:each="evala: ${answer.value.evaluationList}">
-                <td th:text="${evala.value}"/>
-                <td th:text="${evala.user}"/>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tbody>
+    <tr th:each="card:${cards}">
+      <table class="table table-bordered">
+        <tr>
+          <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
+          <td style="text-align:center; width:20%"><span th:text="${card.question.user}"> User </span></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="table table-bordered">
+              <tr th:each="evalq: ${card.questionEvaluations}">
+                <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
+                <td style="text-align:center; width:20%" th:text="${evalq.value.user}"/>
             </table>
           </td>
-      </table>
-    </td>
-  </tr>
-</table>
-<br><br>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="table table-bordered">
+              <tr th:each="answer: ${card.answerEvaluationMap}">
+                <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
+                <td style="text-align:center; width:10%" th:text="${answer.value.user}"/>
 
+                <td style="text-align:center; width:50%">
+                  <table class="table table-bordered">
+                    <tr th:each="evala: ${answer.value.evaluationList}">
+                      <td style="text-align:center; width:80%"th:text="${evala.value}"/>
+                      <td style="text-align:center; width:20%" th:text="${evala.user}"/>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </tr>
+    </tbody>
+  </table>
+</div>
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
   <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
   <input type="hidden" value="StoreData" name="name">
   <button type="submit" value="StoreData" name="storedata" style="width:100%">Session speichern</button>
 </form>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

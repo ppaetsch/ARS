@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Session</title>
-</head>
+<head th:insert="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <body>
 <form th:action="@{/getUserList}" method="post">
     <input type="hidden" th:value="${sessionname}" name="sessionname">
     <button type="submit" value="getUserList" name="userlist" style="width:100%">User Liste abrufen</button>
 </form>
-<br><br>
 <form th:action="@{/getQuestions}" method="post">
     <input type="hidden" th:value="${sessionname}" name="sessionname">
     <button type="submit" value="getQuestions" name="questionlist" style="width:100%">Frage Liste abrufen</button>
@@ -37,4 +34,5 @@
 </form>
 
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="header :: head"></head>
+<head th:replace="header :: head"></head>
 <body th:insert="headline :: headline"></body>
 <body>
-Error: Page not found
+<h3>Impressum</h3>
+<div>
+  Patrick Paetsch<br>
+  Riemer Str. 344a<br>
+  81829 Muenchen<br>
+  syseraud@e-mail.de
+</div>
 </body>
 <body th:insert="footer :: footer"></body>
 </html>

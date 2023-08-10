@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <head>
-    <meta charset="UTF-8">
-    <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
-    <title>Evaluation</title>
     <script th:inline="javascript">
         /*<![CDATA[*/
             var ses = /*[[${sessionname}]]*/;
@@ -24,11 +23,8 @@
     })
 </script>
 </head>
+<body th:insert="headline :: headline"></body>
 <body>
-
-<p style="text-align:center"><span th:text="${question}">Question</span></p>
-<p style="text-align:center"><span th:text="${answer}">Answer</span></p>
-<br>
 <p style="text-align:center">
 <form style="text-align:center" th:action="@{/Session/{path}/userEval (path=${sessionname})}" method="post">
     <input type="hidden" name="name" th:value="${user}">
@@ -37,8 +33,20 @@
     <input type="hidden" name="questionId" th:value="${questionId}">
     <input type="hidden" name="answer" th:value="${answer}">
     <input type="hidden" name="answerId" th:value="${answerId}">
-    <textarea type="text" style="height:250px" placeholder="Evaluation zu Frage eingeben" name="evalq"></textarea><br>
-    <textarea type="text" style="height:250px" placeholder="Evaluation zu Antwort eingeben" name="evala"></textarea><br>
+    <table style="width: 100%">
+        <tr>
+           <td>
+               <p style="text-align:center"><span th:text="${question}">Question</span></p>
+           </td>
+           <td>
+               <p style="text-align:center"><span th:text="${answer}">Answer</span></p>
+           </td>
+        </tr>
+        <tr>
+           <td>    <textarea type="text" placeholder="Evaluation zu Frage eingeben" name="evalq"></textarea></td>
+           <td>    <textarea type="text" placeholder="Evaluation zu Antwort eingeben" name="evala"></textarea><br></td>
+       </tr>
+    </table>
     <input type="submit" value="Abgeben" id="submitting">
 </form>
 </p>
@@ -49,4 +57,5 @@
     <button id="openFinal" type="submit" style="display:none;" value="openFinal" name="event" disabled>Zusammenfassung öffnen</button>
 </form>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head"></head>
+<body th:insert="headline :: headline"></body>
 <head>
-  <meta charset="UTF-8">
-  <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
-  <title>Results</title>
   <script th:inline="javascript">
         /*<![CDATA[*/
             var ses = /*[[${sessionname}]]*/;
@@ -27,30 +26,43 @@
 
 <br>
 <p style="text-align:center">
-<table border="solid" style="width:100%">
+<div class="table-responsive">
+<table class="table table-bordered">
+ <tbody>
   <tr th:each="card:${cards}">
-    <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
-    <td>
-      <table>
-        <tr th:each="evalq: ${card.questionEvaluations}">
-          <td th:text="${evalq.value.value}"/>
-      </table>
-    </td>
-    <td>
-      <table>
-        <tr th:each="answer: ${card.answerEvaluationMap}">
-          <td th:text="${answer.value.value}"/>
-          <td>
-            <table>
-              <tr th:each="evala: ${answer.value.evaluationList}">
-                <td th:text="${evala.value}"/>
-            </table>
-          </td>
-      </table>
-    </td>
-  </tr>
+    <table class="table table-bordered">
+      <tr>
+        <td th:text="${card.question.value}"/>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered">
+            <tr th:each="evalq: ${card.questionEvaluations}">
+              <td th:text="${evalq.value.value}"/>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered">
+            <tr th:each="answer: ${card.answerEvaluationMap}">
+              <td th:text="${answer.value.value}"/>
+              <td>
+                <table>
+                  <tr th:each="evala: ${answer.value.evaluationList}">
+                    <td th:text="${evala.value}"/>
+                  </tr>
+                </table>
+              </td>
+          </table>
+        </td>
+      </tr>
+    </table>
+ </tbody>
 </table>
 </p>
-<br>
+</div>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
-    <title>Question</title>
-    <script th:inline="javascript">
+<head th:insert="header :: head"></head>
+<body th:insert="headline :: headline"></body>
+<head><script th:inline="javascript">
         /*<![CDATA[*/
             var ses = /*[[${sessionname}]]*/;
             console.log(ses);
         /*]]>*/
     </script>
-    <script>
+<script>
     $(document).ready(function() {
         var urlEndPoint = '/notify/'+ses;
         console.log(urlEndPoint);
@@ -30,7 +28,7 @@
     <form style="text-align:center" th:action="@{/Session/{path}/userQuestion (path=${sessionname})}" method="post">
         <input type="hidden" name="name" th:value="${user}">
         <input type="hidden" name="id" th:value="${userId}">
-        <textarea type="text" style="height:250px"  placeholder="Frage eingeben" name="question"></textarea><br>
+        <textarea type="text" placeholder="Frage eingeben" name="question"></textarea><br>
         <input type="submit" value="Abgeben" id="submitting">
     </form>
 </p>
@@ -41,4 +39,5 @@
         <button id="openAnswer" type="submit" style="display:none;" value="openAnswer" name="event" disabled>Antworten öffnen</button>
     </form>
 </body>
+<body th:insert="footer :: footer"></body>
 </html>
