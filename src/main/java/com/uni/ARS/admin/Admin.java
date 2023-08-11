@@ -1,6 +1,6 @@
 package com.uni.ARS.admin;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashSet;
@@ -9,7 +9,9 @@ import java.util.Set;
 @Document(collection = "admins")
 public class Admin {
 
+    @Id
     private String name;
+
     private String password;
     private Set<String> sessions = new HashSet<>();
 

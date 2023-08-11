@@ -16,12 +16,11 @@ public class EvaluationService {
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Question Service: session " + arsSession.getName());
         QACard qaCard = arsSession.getDataForEvaluation(userId);
-        System.out.println("Size of answer list " + qaCard.getAnswerEvaluationMap().size() + "in Service");
         //arsSession.setQuestion(username);
         return qaCard;
     }
 
-    @Async
+    //@Async
     public void handleEvaluations(String sessionname, Integer userId, Integer questionId, Integer answerId, String evalq, String evala) {
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Eval Service: session " + arsSession.getName());

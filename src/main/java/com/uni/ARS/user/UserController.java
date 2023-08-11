@@ -1,6 +1,7 @@
-package com.uni.ARS.session;
+package com.uni.ARS.user;
 
-import com.uni.ARS.user.User;
+import com.uni.ARS.session.ARSSessionHandler;
+import com.uni.ARS.session.SessionState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

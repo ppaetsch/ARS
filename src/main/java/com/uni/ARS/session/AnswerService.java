@@ -15,12 +15,11 @@ public class AnswerService {
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Question Service: session " + arsSession.getName());
         Question question = arsSession.getQuestion(userId);
-        //arsSession.setQuestion(username);
         return question;
     }
 
 
-    @Async
+    //@Async
     public void handleAnswer(String sessionname, Integer userId, Integer qid, String answer){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         System.out.println("Answer Service: session " + arsSession.getName());

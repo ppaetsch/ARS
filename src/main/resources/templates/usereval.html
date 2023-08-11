@@ -6,11 +6,15 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
             var ses = /*[[${sessionname}]]*/;
+            var error = /*[[${error}]]*/;
             console.log(ses);
         /*]]>*/
     </script>
     <script>
     $(document).ready(function() {
+        if(error==true){
+            document.getElementById('submitting').disabled = true;
+        }
         var urlEndPoint = '/notify/'+ses;
         console.log(urlEndPoint);
         var eventSource = new EventSource(urlEndPoint);
@@ -36,10 +40,12 @@
     <table style="width: 100%">
         <tr>
            <td>
-               <p style="text-align:center"><span th:text="${question}">Question</span></p>
+               <p th:if="${error == true}" style="text-align:center">Keine Frage verfügbar, bitte warten</p>
+               <p th:unless="${error == true}" style="text-align:center"><span th:text="${question}">Question</span></p>
            </td>
            <td>
-               <p style="text-align:center"><span th:text="${answer}">Answer</span></p>
+               <p th:if="${error == true}" style="text-align:center">Keine Antwort verfügbar, bitte warten</p>
+               <p th:unless="${error == true}" style="text-align:center"><span th:text="${answer}">Antwort</span></p>
            </td>
         </tr>
         <tr>
@@ -47,7 +53,7 @@
            <td>    <textarea type="text" placeholder="Evaluation zu Antwort eingeben" name="evala"></textarea><br></td>
        </tr>
     </table>
-    <input type="submit" value="Abgeben" id="submitting">
+    <button type="submit" value="Abgeben" id="submitting">Abgeben</button>
 </form>
 </p>
 <br>

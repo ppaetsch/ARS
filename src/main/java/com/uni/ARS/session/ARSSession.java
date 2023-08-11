@@ -104,8 +104,7 @@ public class ARSSession {
 
     public QACard getDataForEvaluation(Integer userId) {
         User user = users.get(userId);
-        QACard qaCard = dataHandler.getDataForEvaluation(userId);
-        System.out.println("Size of answer list " + qaCard.getAnswerEvaluationMap().size() + "in ARS");
+        QACard qaCard = dataHandler.getDataForEvaluation(user);
         return qaCard;
     }
 

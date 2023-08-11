@@ -53,7 +53,8 @@ public class DataHandler {
             Integer i = random.nextInt(questions.size());
             System.out.println("Tries: " + i);
             System.out.println("Contains: " + user.getQuestions().toString());
-            if(!user.getQuestions().contains(i)){
+            System.out.println("Contains: " + user.getAnswers().values().toString());
+            if(!user.getQuestions().contains(i)&&!user.getAnswers().values().contains(i)){
                 Question question = questions.get(i);
                 System.out.println(question == null);
                 return question;
@@ -63,19 +64,6 @@ public class DataHandler {
             }
             tries++;
         }
-
-
-        for (Integer key : questions.keySet()){
-            System.out.println("Key is: " + key);
-            System.out.println(questions.get(key)==null);
-        }
-
-/*
-        Integer i = random.nextInt(questions.size());
-        System.out.println("Random: " + questions.size());
-        System.out.println("Randomnr: " + i);
-        Question question = questions.get(i);
-        System.out.println(question == null);*/
         return null;
     }
 
@@ -93,15 +81,27 @@ public class DataHandler {
         return id;
     }
 
-    public QACard getDataForEvaluation(Integer userId) {
-        Random random = new Random();
-        Integer i = random.nextInt(questionToAnswers.size());
-        Integer qid = questionToAnswers.get(i);
-        QACard card = cards.get(qid);
-        QACard qaCard = new QACard(card.getQuestion());
-        Answer answer = card.getAnswerEvaluationMap().get(i);
-        qaCard.getAnswerEvaluationMap().put(0,answer);
-        return qaCard;
+    public QACard getDataForEvaluation(User user) {
+        if (questionToAnswers.size()!=0){
+            Random random = new Random();
+            int tries=0;
+            while(tries<30){
+                Integer i = random.nextInt(questionToAnswers.size());
+                Integer qid = questionToAnswers.get(i);
+                if(!user.getQuestions().contains(qid)&&!user.getAnswers().values().contains(qid)&&!user.getEvaluationsQuestions().values().contains(qid)&&!user.getAnswers().containsKey(i)&&!user.getEvaluationsAnswers().values().contains(i)){
+                    QACard card = cards.get(qid);
+                    QACard qaCard = new QACard(card.getQuestion());
+                    Answer answer = card.getAnswerEvaluationMap().get(i);
+                    qaCard.getAnswerEvaluationMap().put(0,answer);
+                    return qaCard;
+                }
+                else {
+                    System.out.println("Try again");
+                }
+                tries++;
+            }
+        }
+        return null;
     }
 
     public Integer insertEvaluationAnswer(Evaluation answerEvaluation, Integer questionId, Integer answerId) {

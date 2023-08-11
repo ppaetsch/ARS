@@ -21,13 +21,18 @@ public class EvaluationController {
         System.out.println("openEval Session: " + sessionname);
 
         QACard qaCard = evaluationService.getDataForEvaluation(sessionname,userId);
-        System.out.println("Size of answer list " + qaCard.getAnswerEvaluationMap().size() + "in Controller");
-        System.out.println("openEval got QACard");
-        System.out.println(qaCard.getAnswerEvaluationMap().keySet());
-        model.addAttribute("question", qaCard.getQuestion().getValue());
-        model.addAttribute("questionId", qaCard.getQuestion().getId());
-        model.addAttribute("answer", qaCard.getAnswerEvaluationMap().get(0).getValue());
-        model.addAttribute("answerId", qaCard.getAnswerEvaluationMap().get(0).getId());
+        if (qaCard==null){
+            model.addAttribute("error", true);
+        }
+        else{
+            System.out.println("Size of answer list " + qaCard.getAnswerEvaluationMap().size() + "in Controller");
+            System.out.println("openEval got QACard");
+            System.out.println(qaCard.getAnswerEvaluationMap().keySet());
+            model.addAttribute("question", qaCard.getQuestion().getValue());
+            model.addAttribute("questionId", qaCard.getQuestion().getId());
+            model.addAttribute("answer", qaCard.getAnswerEvaluationMap().get(0).getValue());
+            model.addAttribute("answerId", qaCard.getAnswerEvaluationMap().get(0).getId());
+        }
         model.addAttribute("user", name);
         model.addAttribute("userId", userId);
         System.out.println("openEval ending");
@@ -39,12 +44,17 @@ public class EvaluationController {
         System.out.println("Start insert Eval");
         evaluationService.handleEvaluations(sessionname, userId, questionId, answerId, evalq, evala);
         QACard qaCard = evaluationService.getDataForEvaluation(sessionname,userId);
-        System.out.println(qaCard.getAnswerEvaluationMap().keySet());
-        model.addAttribute("question", qaCard.getQuestion().getValue());
-        model.addAttribute("questionId", qaCard.getQuestion().getId());
-        model.addAttribute("answer", qaCard.getAnswerEvaluationMap().get(0).getValue());
-        model.addAttribute("answerId", qaCard.getAnswerEvaluationMap().get(0).getId());
-        model.addAttribute("userId", userId);
+        if (qaCard==null){
+            model.addAttribute("error", true);
+        }
+        else {
+            System.out.println(qaCard.getAnswerEvaluationMap().keySet());
+            model.addAttribute("question", qaCard.getQuestion().getValue());
+            model.addAttribute("questionId", qaCard.getQuestion().getId());
+            model.addAttribute("answer", qaCard.getAnswerEvaluationMap().get(0).getValue());
+            model.addAttribute("answerId", qaCard.getAnswerEvaluationMap().get(0).getId());
+            model.addAttribute("userId", userId);
+        }
         return "usereval.html";
     }
 

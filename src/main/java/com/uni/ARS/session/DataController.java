@@ -22,6 +22,9 @@ public class DataController {
     @Autowired
     private QACardRepository repo;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
     @PostMapping("/Data/getData")
     public String getData(@RequestParam(name="name") String name, @RequestParam(name="sessionname") String sessionname, Model model){
         Admin admin = adminRepository.findByName(name);
@@ -48,6 +51,7 @@ public class DataController {
             repo.deleteByArsSession(sessionname);
             admin.getSessions().remove(sessionname);
             adminRepository.save(admin);
+            sessionRepository.deleteByName(sessionname);
             return "data.html";
         }
         return "data.html";

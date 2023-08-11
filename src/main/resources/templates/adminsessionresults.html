@@ -5,40 +5,44 @@
 <body>
 
     <th:block th:each="card:${cards}">
-      <table class="table table-bordered">
-        <tr>
-          <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
-          <td style="text-align:center; width:20%"><span th:text="${card.question.user}"> User </span></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <table class="table table-bordered">
-              <tr th:each="evalq: ${card.questionEvaluations}">
-                <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
-                <td style="text-align:center; width:20%" th:text="${evalq.value.user}"/>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <table class="table table-bordered">
-              <tr th:each="answer: ${card.answerEvaluationMap}">
-                <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
-                <td style="text-align:center; width:10%" th:text="${answer.value.user}"/>
+      <div class="card card-body">
+        <table class="table table-bordered">
+          <div class="card-text">
+            <tr>
+              <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
+              <td style="text-align:center; width:20%"><span th:text="${card.question.user}"> User </span></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered">
+                  <tr th:each="evalq: ${card.questionEvaluations}">
+                    <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
+                    <td style="text-align:center; width:20%" th:text="${evalq.value.user}"/>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered">
+                  <tr th:each="answer: ${card.answerEvaluationMap}">
+                    <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
+                    <td style="text-align:center; width:10%" th:text="${answer.value.user}"/>
 
-                <td style="text-align:center; width:50%">
-                  <table class="table table-bordered">
-                    <tr th:each="evala: ${answer.value.evaluationList}">
-                      <td style="text-align:center; width:80%"th:text="${evala.value}"/>
-                      <td style="text-align:center; width:20%" th:text="${evala.user}"/>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+                    <td style="text-align:center; width:50%">
+                      <table class="table table-bordered">
+                        <tr th:each="evala: ${answer.value.evaluationList}">
+                          <td style="text-align:center; width:80%"th:text="${evala.value}"/>
+                          <td style="text-align:center; width:20%" th:text="${evala.user}"/>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </div>
+        </table>
+      </div>
     </th:block>
 
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">

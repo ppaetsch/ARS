@@ -25,42 +25,42 @@
 <body>
 
 <br>
-<p style="text-align:center">
 
-  <th:block th:each="card:${cards}">
-    <div class="card card-body">
-      <table class="table table-bordered">
+<th:block th:each="card:${cards}">
+  <div class="card card-body">
+    <table class="table table-bordered">
+      <div class="card-text">
         <tr>
-          <td th:text="${card.question.value}"/>
+          <td th:text="${card.question.value}"></td>
         </tr>
         <tr>
-          <td>
+          <td colspan="2">
             <table class="table table-bordered">
               <tr th:each="evalq: ${card.questionEvaluations}">
-                <td th:text="${evalq.value.value}"/>
+                <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="table table-bordered">
+              <tr th:each="answer: ${card.answerEvaluationMap}">
+                <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
+                <td style="text-align:center; width:50%">
+                  <table class="table table-bordered">
+                    <tr th:each="evala: ${answer.value.evaluationList}">
+                      <td style="text-align:center; width:80%"th:text="${evala.value}"/>
+                    </tr>
+                  </table>
+                </td>
               </tr>
             </table>
           </td>
         </tr>
-        <tr>
-          <td>
-            <table class="table table-bordered">
-              <tr th:each="answer: ${card.answerEvaluationMap}">
-                <td th:text="${answer.value.value}"/>
-                <td>
-                  <table>
-                    <tr th:each="evala: ${answer.value.evaluationList}">
-                      <td th:text="${evala.value}"/>
-                    </tr>
-                  </table>
-                </td>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </th:block>
-</p>
+      </div>
+    </table>
+  </div>
+</th:block>
 </body>
 <body th:insert="footer :: footer"></body>
 </html>
