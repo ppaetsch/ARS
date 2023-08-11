@@ -13,7 +13,16 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-
+    /**
+     * Recieve question from user
+     *
+     * @param sessionname name of currently used session
+     * @param name name of user
+     * @param question question from user
+     * @param userId id of user
+     * @param model model to add attributes to html response
+     * @return userquestion.html
+     */
     @PostMapping("/Session/{sessionname}/userQuestion")
     public String getQuestion(@PathVariable String sessionname, @RequestParam (name="name") String name, @RequestParam (name="question") String question, @RequestParam (name="id") Integer userId, Model model){
         System.out.println("sess: " + sessionname + " user: " + name + " q: " + question);

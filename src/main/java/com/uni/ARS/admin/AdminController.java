@@ -16,6 +16,14 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * Gets admin name and password and checks with database, if correct
+     *
+     * @param name name of user
+     * @param pwd password of user
+     * @param model model to add attributes to html response
+     * @return mainmenu.html if login successful, index.html otherwise
+     */
     @PostMapping(value = "/MainMenu", params = {"login"})
     public String postLogin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
@@ -43,6 +51,14 @@ public class AdminController {
         return "register.html";
     }
 
+    /**
+     * Registers admin and stores in database
+     *
+     * @param name name of user
+     * @param pwd password of user
+     * @param model model to add attributes to html response
+     * @return index.html if register was successful, register.html otherwise
+     */
     @PostMapping("/register")
     public String addAdmin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
@@ -59,6 +75,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Changes the password from old to new
+     *
+     * @param name name of user
+     * @param oldpwd old password of user
+     * @param newpwd new password of user
+     * @param model model to add attributes to html response
+     * @return settings.html with success notification if successful, fail notification otherwise
+     */
     @PostMapping("/password")
     public String changePassword(@RequestParam(name="name") String name, @RequestParam(name="oldpwd") String oldpwd, @RequestParam(name="newpwd") String newpwd, Model model){
         model.addAttribute("name",name);

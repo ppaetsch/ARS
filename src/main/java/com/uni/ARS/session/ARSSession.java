@@ -72,6 +72,13 @@ public class ARSSession {
         this.state = state;
     }
 
+    /**
+     * Creates new question and adds question id to user
+     *
+     * @param userId id of user
+     * @param username name of user
+     * @param question question asked by user
+     */
     public void setQuestion(Integer userId, String username, String question){
         Question question1 = new Question(question, username);
         Integer id = dataHandler.insertQuestion(question1, name);
@@ -94,6 +101,13 @@ public class ARSSession {
         return userList;
     }
 
+    /**
+     * Creates new answer and adds answer and question id to user
+     *
+     * @param userId id of user
+     * @param qid id of answered question
+     * @param answer answer given by user
+     */
     public void setAnswer(Integer userId, Integer qid, String answer){
         User user = users.get(userId);
         Answer answer1 = new Answer(answer, user.getName());
@@ -108,6 +122,15 @@ public class ARSSession {
         return qaCard;
     }
 
+    /**
+     * Creates new evaluation for answer and question and adds ids to user
+     *
+     * @param userId id of user
+     * @param questionId id of evaluated question
+     * @param answerId id of evaluated answer
+     * @param evalq evaluation of question from user
+     * @param evala evaluation of answer from user
+     */
     public void setEvaluation(Integer userId, Integer questionId, Integer answerId, String evalq, String evala) {
         User user = users.get(userId);
         Evaluation answerEvaluation = new Evaluation(evala, user.getName());

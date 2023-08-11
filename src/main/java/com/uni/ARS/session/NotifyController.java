@@ -26,6 +26,12 @@ public class NotifyController {
 
     public Map<String, List<SseEmitter>> sseEmitterMap = new HashMap<>();
 
+    /**
+     * Creates SseEmitter for user
+     *
+     * @param sessionname name of currently used session
+     * @return SseEmiiter for user to recieve Server Sent Events
+     */
     @CrossOrigin
     @GetMapping(value = "/notify/{sessionname}", consumes = MediaType.ALL_VALUE)
     public SseEmitter postEmitter(@PathVariable String sessionname){
@@ -52,6 +58,14 @@ public class NotifyController {
         return sseEmitter;
     }
 
+    /**
+     * Sends notification to all stored SseEmitters according to notification type
+     *
+     * @param name name of notification type
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return html according to notification type
+     */
     @PostMapping(value = "/notifychange/{sessionname}")
     public String sendNotification(@RequestParam String name,@PathVariable String sessionname, Model model){
         arsSessionHandler.getSession(sessionname).changeState();
@@ -82,6 +96,12 @@ public class NotifyController {
 
     }
 
+    /**
+     * Sends message to all connected SseEmitters
+     *
+     * @param name name of notification type
+     * @param session name of currently used session
+     */
     public void sendMessage(String name, String session){
         List<SseEmitter> sseEmitterList = sseEmitterMap.get(session);
         if (sseEmitterList!=null){

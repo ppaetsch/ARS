@@ -17,6 +17,13 @@ public class AdminSessionController {
     @Autowired
     private ARSSessionHandler arsSessionHandler;
 
+    /**
+     * Returns the userlist for displaying
+     *
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return adminsession.html to show userlist
+     */
     @PostMapping(value="/getUserList")
     public String getUserList(@RequestParam (name="sessionname") String sessionname, Model model){
         List<User> users = arsSessionHandler.getSession(sessionname).getAllUsers();
@@ -25,6 +32,13 @@ public class AdminSessionController {
         return "adminsession.html";
     }
 
+    /**
+     * Returns all questions for displaying
+     *
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return adminsession.html to show questions
+     */
     @PostMapping(value="/getQuestions")
     public String getAllQuestions(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
@@ -34,6 +48,13 @@ public class AdminSessionController {
         return "adminsession.html";
     }
 
+    /**
+     * Returns all answers with questions for displaying
+     *
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return adminsessionanswers.html to show answers
+     */
     @PostMapping(value="/getAnswers")
     public String getAllAnswers(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
@@ -43,6 +64,13 @@ public class AdminSessionController {
         return "adminsessionanswers.html";
     }
 
+    /**
+     * Returns cards for displaying
+     *
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return adminsessioneval.html to show evaluations
+     */
     @PostMapping(value="/getEvaluations")
     public String getAllEvaluations(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();

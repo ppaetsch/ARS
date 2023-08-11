@@ -14,6 +14,13 @@ public class UserService {
 
     private Integer nextId = 0;
 
+    /**
+     * Creates a new user with given name, stores to session and returns object
+     *
+     * @param username name of user
+     * @param sessionname name of currently used session
+     * @return created user
+     */
     public User addUser(String username, String sessionname){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
         //if (!arsSession2.getUserList().containsKey("id")){

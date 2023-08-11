@@ -25,6 +25,14 @@ public class DataController {
     @Autowired
     private SessionRepository sessionRepository;
 
+    /**
+     * Recieves request to get all cards from session
+     *
+     * @param name name of admin
+     * @param sessionname name of stored session
+     * @param model model to add attributes to html response
+     * @return data.html
+     */
     @PostMapping("/Data/getData")
     public String getData(@RequestParam(name="name") String name, @RequestParam(name="sessionname") String sessionname, Model model){
         Admin admin = adminRepository.findByName(name);
@@ -40,6 +48,14 @@ public class DataController {
         return "data.html";
     }
 
+    /**
+     * Recieves request to delete stored cards and session from database
+     *
+     * @param name name of admin
+     * @param sessionname name of stored session
+     * @param model model to add attributes to html response
+     * @return data.html
+     */
     @PostMapping("/Data/deleteData")
     public String deleteData(@RequestParam(name="name") String name, @RequestParam(name="sessionname") String sessionname, Model model){
         Admin admin = adminRepository.findByName(name);

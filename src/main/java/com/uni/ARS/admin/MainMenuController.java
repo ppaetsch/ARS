@@ -52,6 +52,16 @@ public class MainMenuController {
         return "sessionstart.html";
     }
 
+    /**
+     * Creates session, returns fail if session already exists
+     *
+     * @param sessionname name of currently used session
+     * @param name name of admin
+     * @param model model to add attributes to html response
+     * @return session.html if creating session was successful, sessionstart.html otherwise
+     * @throws IOException
+     * @throws WriterException
+     */
     @PostMapping("/SessionCreate")
     public String createSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws IOException, WriterException {
         Admin admin = adminRepository.findByName(name);
@@ -89,12 +99,26 @@ public class MainMenuController {
         return "sessionstart.html";
     }
 
+    /**
+     * Creates a QR-Code from the session url
+     *
+     * @param sessionurl url of currectly used session
+     * @return QR-Code as BufferedImage
+     * @throws WriterException
+     */
     private BufferedImage createQRCodeForSession(String sessionurl) throws WriterException {
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix bitMatrix = writer.encode(sessionurl, BarcodeFormat.QR_CODE,500,500);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
+    /**
+     * Returns a set of all sessions admin has created
+     *
+     * @param name name of admin
+     * @param model model to add attributes to html response
+     * @return data.html to show stored sessions
+     */
     @PostMapping("/MainMenu/data")
     public String getData(@RequestParam(name="name") String name,Model model){
         Admin admin = adminRepository.findByName(name);
@@ -104,6 +128,13 @@ public class MainMenuController {
         return "data.html";
     }
 
+    /**
+     * Opens settings
+     *
+     * @param name name of admin
+     * @param model model to add attributes to html response
+     * @return settings.html
+     */
     @PostMapping("/MainMenu/settings")
     public String getSettings(@RequestParam(name="name") String name, Model model){
         model.addAttribute("name",name);
@@ -126,6 +157,13 @@ public class MainMenuController {
         return "impressum.html";
     }
 
+    /**
+     * Creates new session for admin to use
+     *
+     * @param sessionname name of currently used session
+     * @param admin admin that creates session
+     * @throws JsonProcessingException
+     */
     public void createSession(String sessionname, Admin admin) throws JsonProcessingException {
         ARSSession session = new ARSSession(admin, sessionname);
         arsSessionHandler.addSession(session);

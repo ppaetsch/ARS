@@ -15,6 +15,15 @@ public class EvaluationController {
     @Autowired
     private EvaluationService evaluationService;
 
+    /**
+     * Recieves request to open evaluation
+     *
+     * @param sessionname name of currently used session
+     * @param userId id of user
+     * @param name name of user
+     * @param model model to add attributes to html response
+     * @return usereval.html with card if evaluation is available, error message otherwise
+     */
     @PostMapping("/Session/{sessionname}/openEval")
     public String openEvaluation(@PathVariable String sessionname, @RequestParam(name="id") Integer userId, @RequestParam(name="name") String name, Model model){
         System.out.println("openEval Started");
@@ -39,6 +48,18 @@ public class EvaluationController {
         return "usereval.html";
     }
 
+    /**
+     * Recieves evaluation from user
+     *
+     * @param sessionname name of currently used session
+     * @param userId id of user
+     * @param questionId id of evaluated question
+     * @param answerId id of evaluated answer
+     * @param evalq evaluation for question
+     * @param evala evaluation for answer
+     * @param model model to add attributes to html response
+     * @return usereval.html with card if evaluation is available, error message otherwise
+     */
     @PostMapping("/Session/{sessionname}/userEval")
     public String setEvaluations(@PathVariable String sessionname, @RequestParam(name="id") Integer userId, @RequestParam(name="questionId") Integer questionId, @RequestParam(name="answerId") Integer answerId, @RequestParam(name="evalq") String evalq, @RequestParam(name="evala") String evala, Model model){
         System.out.println("Start insert Eval");

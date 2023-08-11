@@ -19,6 +19,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Returns login page for user to join session
+     *
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return userlogin.html if session exist, error.html otherwise
+     */
     @GetMapping("/Session/{sessionname}")
     public String getUserLogin(@PathVariable String sessionname, Model model){
         if(arsSessionHandler.getArsSessions().containsKey(sessionname)){
@@ -30,6 +37,14 @@ public class UserController {
         return "error.html";
     }
 
+    /**
+     * Logs in user with name to session
+     *
+     * @param name name of user
+     * @param sessionname name of currently used session
+     * @param model model to add attributes to html response
+     * @return userquestion.html if login was successful, error.html otherwise
+     */
     @PostMapping("/Session/userlogin")
     public String acceptUserLogin(@RequestParam(name="name") String name, @RequestParam(name="sessionname") String sessionname, Model model){
         User user = userService.addUser(name, sessionname);
