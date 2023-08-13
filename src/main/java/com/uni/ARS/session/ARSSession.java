@@ -107,9 +107,9 @@ public class ARSSession {
      * @param qid id of answered question
      * @param answer answer given by user
      */
-    public void setAnswer(Integer userId, Integer qid, String answer){
+    public void setAnswer(Integer userId, Integer qid, String answer, Integer difficulty){
         User user = users.get(userId);
-        Answer answer1 = new Answer(answer, user.getName());
+        Answer answer1 = new Answer(answer, user.getName(), difficulty);
         Integer id = dataHandler.insertAnswer(answer1, qid);
         users.get(userId).getAnswers().put(id, qid);
     }
@@ -129,13 +129,13 @@ public class ARSSession {
      * @param evalq evaluation of question from user
      * @param evala evaluation of answer from user
      */
-    public void setEvaluation(Integer userId, Integer questionId, Integer answerId, String evalq, String evala) {
+    public void setEvaluation(Integer userId, Integer questionId, Integer answerId, String evalq, String evala, Integer difficultyQuestion, Integer difficultyAnswer) {
         User user = users.get(userId);
-        Evaluation answerEvaluation = new Evaluation(evala, user.getName());
+        Evaluation answerEvaluation = new Evaluation(evala, user.getName(), difficultyAnswer);
         Integer idAnswer = dataHandler.insertEvaluationAnswer(answerEvaluation, questionId, answerId);
         users.get(userId).getEvaluationsAnswers().put(idAnswer, answerId);
 
-        Evaluation questionEvaluation = new Evaluation(evalq, user.getName());
+        Evaluation questionEvaluation = new Evaluation(evalq, user.getName(), difficultyQuestion);
         Integer idQuestion = dataHandler.insertEvaluationQuestion(questionEvaluation, questionId);
         users.get(userId).getEvaluationsQuestions().put(idQuestion, questionId);
     }

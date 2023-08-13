@@ -55,8 +55,8 @@ public class AnswerController {
      * @return useranswer.html
      */
     @PostMapping("/Session/{sessionname}/userAnswer")
-    public String getAnswer(@PathVariable String sessionname,@RequestParam(name="name") String name, @RequestParam (name="questionId") Integer qid, @RequestParam (name="id") Integer userId, @RequestParam (name="answer") String answer, Model model){
-        answerService.handleAnswer(sessionname, userId,qid,answer);
+    public String getAnswer(@PathVariable String sessionname,@RequestParam(name="name") String name, @RequestParam (name="questionId") Integer qid, @RequestParam (name="id") Integer userId,@RequestParam (name="difficulty") Integer difficulty, @RequestParam (name="answer") String answer, Model model){
+        answerService.handleAnswer(sessionname, userId,qid,answer, difficulty);
         Question question = answerService.getQuestion(sessionname, userId);
         if (question==null){
             model.addAttribute("error", true);

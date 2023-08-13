@@ -9,7 +9,7 @@
 </form>
 
 
-<table style="width:100%">
+<table style="width:90%">
     <tr th:each="card:${cards}">
         <td>
             <table style="width:100%">
@@ -24,6 +24,7 @@
                 <tr th:each="answer:${card.answerEvaluationMap}">
                     <td style="text-align:center; width:50%" th:text="${answer.value.value}"/>
                     <td style="text-align:center; width:100%" th:text="${answer.value.user}"/>
+                    <td style="text-align:center; width:100%" th:text="${answer.value.difficulty}"/>
                 </tr>
             </table>
         </td>

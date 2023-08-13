@@ -54,8 +54,8 @@ public class EvaluationController {
      * @return usereval.html with card if evaluation is available, error message otherwise
      */
     @PostMapping("/Session/{sessionname}/userEval")
-    public String setEvaluations(@PathVariable String sessionname, @RequestParam(name="id") Integer userId, @RequestParam(name="questionId") Integer questionId, @RequestParam(name="answerId") Integer answerId, @RequestParam(name="evalq") String evalq, @RequestParam(name="evala") String evala, Model model){
-        evaluationService.handleEvaluations(sessionname, userId, questionId, answerId, evalq, evala);
+    public String setEvaluations(@PathVariable String sessionname, @RequestParam(name="id") Integer userId, @RequestParam(name="questionId") Integer questionId, @RequestParam(name="answerId") Integer answerId, @RequestParam(name="evalq") String evalq, @RequestParam(name="evala") String evala,@RequestParam(name="difficultyQuestion") Integer difficultyQuestion,@RequestParam(name="difficultyAnswer") Integer difficultyAnswer, Model model){
+        evaluationService.handleEvaluations(sessionname, userId, questionId, answerId, evalq, evala, difficultyQuestion, difficultyAnswer);
         QACard qaCard = evaluationService.getDataForEvaluation(sessionname,userId);
         if (qaCard==null){
             model.addAttribute("error", true);

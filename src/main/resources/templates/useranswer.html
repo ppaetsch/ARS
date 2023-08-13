@@ -38,7 +38,10 @@
     <input type="hidden" name="id" th:value="${userId}">
     <input type="hidden" name="question" th:value="${question}">
     <input type="hidden" name="questionId" th:value="${questionId}">
-    <textarea type="text" placeholder="Antwort eingeben" name="answer"></textarea><br>
+    <textarea type="text" placeholder="Antwort eingeben" name="answer"></textarea><br><br><br>
+    <label for="difficulty" class="form-label">Ich finde diese Frage </label><br>
+    <span>Leicht </span><input type="range" class="form-range" min="0" max="4" style="width:50%;" name="difficulty" id="difficulty"><span> Schwer</span>
+    <br>
     <button type="submit" value="Abgeben" id="submitting">Abgeben</button>
 </form>
 </p>

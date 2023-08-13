@@ -6,7 +6,7 @@
 
     <th:block th:each="card:${cards}">
       <div class="card card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="width:90%">
           <div class="card-text">
             <tr>
               <td style="text-align:center; width:80%"><span th:text="${card.question.value}"> Question </span></td>
@@ -16,8 +16,9 @@
               <td colspan="2">
                 <table class="table table-bordered">
                   <tr th:each="evalq: ${card.questionEvaluations}">
-                    <td style="text-align:center; width:80%" th:text="${evalq.value.value}"/>
-                    <td style="text-align:center; width:20%" th:text="${evalq.value.user}"/>
+                    <td style="text-align:center; width:80%"th:text="${evalq.value.value}"/>
+                    <td style="text-align:center; width:15%" th:text="${evalq.value.user}"/>
+                    <td style="text-align:center; width:5%" th:text="${evalq.value.difficulty}"/>
                 </table>
               </td>
             </tr>
@@ -27,12 +28,13 @@
                   <tr th:each="answer: ${card.answerEvaluationMap}">
                     <td style="text-align:center; width:40%" th:text="${answer.value.value}"/>
                     <td style="text-align:center; width:10%" th:text="${answer.value.user}"/>
-
+                    <td style="text-align:center; width:10%" th:text="${answer.value.difficulty}"/>
                     <td style="text-align:center; width:50%">
                       <table class="table table-bordered">
                         <tr th:each="evala: ${answer.value.evaluationList}">
                           <td style="text-align:center; width:80%"th:text="${evala.value}"/>
-                          <td style="text-align:center; width:20%" th:text="${evala.user}"/>
+                          <td style="text-align:center; width:15%" th:text="${evala.user}"/>
+                          <td style="text-align:center; width:5%" th:text="${evala.difficulty}"/>
                         </tr>
                       </table>
                     </td>

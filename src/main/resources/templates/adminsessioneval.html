@@ -7,7 +7,7 @@
     <input type="hidden" th:value="${sessionname}" name="sessionname">
     <button type="submit" value="getEval" name="evallist" style="width:100%">Evaluationen Liste abrufen</button>
 </form>
-<table style="width:100%">
+<table style="width:90%">
     <tr th:each="card:${cards}">
         <td style="width=25%" th:text="${card.question.value}"/>
         <td style="width=25%">
@@ -15,6 +15,7 @@
                 <tr th:each="evalq: ${card.questionEvaluations}">
                     <td style="width:75%" th:text="${evalq.value.value}"/>
                     <td style="width:25%" th:text="${evalq.value.user}"/>
+                    <td style="width:25%" th:text="${evalq.value.difficulty}"/>
             </table>
         </td>
         <td style="width=50%">
@@ -26,6 +27,7 @@
                             <tr th:each="evala: ${answer.value.evaluationList}">
                                 <td style="width:75%" th:text="${evala.value}"/>
                                 <td style="width:25%" th:text="${evala.user}"/>
+                                <td style="width:25%" th:text="${evala.difficulty}"/>
                         </table>
                     </td>
             </table>

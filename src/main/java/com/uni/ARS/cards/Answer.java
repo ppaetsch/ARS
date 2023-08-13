@@ -6,10 +6,12 @@ import java.util.List;
 public class Answer extends CardComponent{
 
     private List<Evaluation> evaluationList;
+    private Integer difficulty;
 
-    public Answer(String value, String user) {
+    public Answer(String value, String user, Integer difficulty) {
         super(value, user);
         evaluationList = new ArrayList<>();
+        this.difficulty = difficulty;
     }
 
 
@@ -19,6 +21,14 @@ public class Answer extends CardComponent{
 
     public void setEvaluationList(List<Evaluation> evaluationList) {
         this.evaluationList = evaluationList;
+    }
+
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
     }
 
     public void addToEvaluationList(Evaluation evaluation){

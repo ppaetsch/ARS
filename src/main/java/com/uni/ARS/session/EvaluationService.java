@@ -19,8 +19,8 @@ public class EvaluationService {
     }
 
     //@Async
-    public void handleEvaluations(String sessionname, Integer userId, Integer questionId, Integer answerId, String evalq, String evala) {
+    public void handleEvaluations(String sessionname, Integer userId, Integer questionId, Integer answerId, String evalq, String evala, Integer difficultyQuestion, Integer difficultyAnswer) {
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        arsSession.setEvaluation(userId, questionId,answerId, evalq, evala);
+        arsSession.setEvaluation(userId, questionId,answerId, evalq, evala, difficultyQuestion, difficultyAnswer);
     }
 }

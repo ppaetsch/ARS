@@ -51,6 +51,16 @@
            <td>    <textarea type="text" placeholder="Evaluation zu Frage eingeben" name="evalq"></textarea></td>
            <td>    <textarea type="text" placeholder="Evaluation zu Antwort eingeben" name="evala"></textarea><br></td>
        </tr>
+        <tr>
+            <td>
+                <label for="difficultyQuestion" class="form-label">Schwierigkeitsgrad Frage: </label><br>
+                <span>Leicht </span><input type="range" class="form-range" min="0" max="4" style="width:50%;" name="difficultyQuestion" id="difficultyQuestion"><span> Schwer</span></textarea>
+            </td>
+            <td>
+                <label for="difficultyAnswer" class="form-label">Bewertung Antwort: </label><br>
+                <span>Schlecht </span><input type="range" class="form-range" min="0" max="4" style="width:50%;" name="difficultyAnswer" id="difficultyAnswer"><span> Gut</span></textarea>
+            </td>
+        </tr>
     </table>
     <button type="submit" value="Abgeben" id="submitting">Abgeben</button>
 </form>

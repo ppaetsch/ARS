@@ -19,9 +19,9 @@ public class AnswerService {
 
 
     //@Async
-    public void handleAnswer(String sessionname, Integer userId, Integer qid, String answer){
+    public void handleAnswer(String sessionname, Integer userId, Integer qid, String answer, Integer difficulty){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        arsSession.setAnswer(userId, qid,answer);
+        arsSession.setAnswer(userId, qid,answer, difficulty);
     }
 
 }
