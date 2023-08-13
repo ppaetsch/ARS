@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="header :: head"></head>
-<body th:insert="headline :: headline"></body>
+<head th:insert="~{header :: head}"></head>
+<body th:insert="~{headline :: headline}"></body>
 <body>
     <table style="width:100%">
         <tr><td style="text-align:center"><h2><span th:text="${'Herzlich Willkommen ' + name}">Test</span></h2></td> </tr>
@@ -29,5 +29,5 @@
         <span th:if="${sessionfailed == true}">Session existiert bereits, bitte neuen Namen vergeben</span>
     </form>
 </body>
-<body th:insert="footer :: footer"></body>
+<body th:insert="~{footer :: footer}"></body>
 </html>

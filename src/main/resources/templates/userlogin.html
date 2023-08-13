@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="header :: head"></head>
-<body th:insert="headline :: headline"></body>
+<head th:insert="~{header :: head}"></head>
+<body th:insert="~{headline :: headline}"></body>
 <body>
 <div>
 <h3>Willkommen bei Syseraud</h3>
@@ -15,5 +15,5 @@
   </form>
 </div>
 </body>
-<body th:insert="footer :: footer"></body>
+<body th:insert="~{footer :: footer}"></body>
 </html>

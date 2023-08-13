@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="header :: head"></head>
-<body th:insert="headline :: headline"></body>
+<head th:insert="~{header :: head}"></head>
+<body th:insert="~{headline :: headline}"></body>
 <body>
 <form th:action="@{/getEvaluations}" method="post">
     <input type="hidden" th:value="${sessionname}" name="sessionname">
@@ -40,5 +40,5 @@
     <button type="submit" value="Results" name="results" style="width:100%">Zu Zusammenfassung übergehen</button>
 </form>
 </body>
-<body th:insert="footer :: footer"></body>
+<body th:insert="~{footer :: footer}"></body>
 </html>

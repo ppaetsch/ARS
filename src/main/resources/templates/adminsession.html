@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="header :: head"></head>
-<body th:insert="headline :: headline"></body>
+<head th:insert="~{header :: head}"></head>
+<body th:insert="~{headline :: headline}"></body>
 <body>
 <form th:action="@{/getUserList}" method="post">
     <input type="hidden" th:value="${sessionname}" name="sessionname">
@@ -34,5 +34,5 @@
 </form>
 
 </body>
-<body th:insert="footer :: footer"></body>
+<body th:insert="~{footer :: footer}"></body>
 </html>

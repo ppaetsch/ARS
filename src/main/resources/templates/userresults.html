@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="header :: head"></head>
-<body th:insert="headline :: headline"></body>
+<head th:insert="~{header :: head}"></head>
+<body th:insert="~{headline :: headline}"></body>
 <head>
   <script th:inline="javascript">
         /*<![CDATA[*/
@@ -62,5 +62,5 @@
   </div>
 </th:block>
 </body>
-<body th:insert="footer :: footer"></body>
+<body th:insert="~{footer :: footer}"></body>
 </html>
