@@ -42,7 +42,6 @@ public class AdminSessionController {
     @PostMapping(value="/getQuestions")
     public String getAllQuestions(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
-        System.out.println("Länge liste: " + cards.size());
         model.addAttribute("cards", cards);
         model.addAttribute("sessionname", sessionname);
         return "adminsession.html";
@@ -58,7 +57,6 @@ public class AdminSessionController {
     @PostMapping(value="/getAnswers")
     public String getAllAnswers(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
-        System.out.println("Länge liste: " + cards.size());
         model.addAttribute("cards", cards);
         model.addAttribute("sessionname", sessionname);
         return "adminsessionanswers.html";
@@ -74,7 +72,6 @@ public class AdminSessionController {
     @PostMapping(value="/getEvaluations")
     public String getAllEvaluations(@RequestParam (name="sessionname") String sessionname, Model model){
         List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
-        System.out.println("Länge liste: " + cards.size());
         model.addAttribute("cards", cards);
         model.addAttribute("sessionname", sessionname);
         return "adminsessioneval.html";

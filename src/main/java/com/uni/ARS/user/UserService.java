@@ -23,11 +23,9 @@ public class UserService {
      */
     public User addUser(String username, String sessionname){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        //if (!arsSession2.getUserList().containsKey("id")){
         User user = new User(nextId,username);
         arsSession.getUserList().put(nextId, user);
         nextId++;
-        //arsSession2.users.add(username);
         return user;
         //}
     }

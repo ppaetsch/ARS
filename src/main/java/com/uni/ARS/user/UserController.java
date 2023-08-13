@@ -2,6 +2,8 @@ package com.uni.ARS.user;
 
 import com.uni.ARS.session.ARSSessionHandler;
 import com.uni.ARS.session.SessionState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
     /**
      * Returns login page for user to join session
      *
@@ -33,7 +37,9 @@ public class UserController {
                 model.addAttribute("sessionname", sessionname);
                 return "userlogin.html";
             }
+            logger.warn("Session " + sessionname +" already running, joining prohibited");
         }
+        logger.warn("Session " + sessionname +" not existing");
         return "error.html";
     }
 

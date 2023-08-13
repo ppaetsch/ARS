@@ -2,6 +2,8 @@ package com.uni.ARS.session;
 
 import com.uni.ARS.cards.QACard;
 import com.uni.ARS.cards.QACardRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class NotifyController {
 
     public Map<String, List<SseEmitter>> sseEmitterMap = new HashMap<>();
 
+    Logger logger = LoggerFactory.getLogger(NotifyController.class);
+
     /**
      * Creates SseEmitter for user
      *
@@ -35,26 +39,25 @@ public class NotifyController {
     @CrossOrigin
     @GetMapping(value = "/notify/{sessionname}", consumes = MediaType.ALL_VALUE)
     public SseEmitter postEmitter(@PathVariable String sessionname){
-        System.out.println("Emitter Anfrage wird erstellt mit: " + sessionname);
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
         try {
             sseEmitter.send(SseEmitter.event().name("INIT"));
         } catch (IOException e){
             e.printStackTrace();
         }
-        //sseEmitter.onCompletion(()-> sseEmitterList.remove(sseEmitter));
         if (sseEmitterMap.containsKey(sessionname)){
             List<SseEmitter> emitters = sseEmitterMap.get(sessionname);
             emitters.add(sseEmitter);
             sseEmitterMap.replace(sessionname, emitters);
-            System.out.println("Erfolgreich hinzugefügt in alte Liste");
+            logger.trace("added emitter to existing list");
         }
         else {
             List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
             emitters.add(sseEmitter);
             sseEmitterMap.put(sessionname, emitters);
-            System.out.println("Erfolgreich hinzugefügt in neue Liste");
+            logger.trace("added emitter to new list");
         }
+        sseEmitter.onCompletion(()-> sseEmitterMap.get(sessionname).remove(sseEmitter));
         return sseEmitter;
     }
 
@@ -83,11 +86,13 @@ public class NotifyController {
             return "adminsessionresults.html";
         }
         else if(name.equals("StoreData")){
-            List<QACard> cards = arsSessionHandler.getSession(sessionname).getAllCards();
+            ARSSession session = arsSessionHandler.getSession(sessionname);
+            List<QACard> cards = session.getAllCards();
             for (QACard card:cards){
                 repo.save(card);
             }
-            model.addAttribute("name", arsSessionHandler.getSession(sessionname).admin.getName());
+            model.addAttribute("name", session.admin.getName());
+            arsSessionHandler.getArsSessions().remove(sessionname);
             return "mainmenu.html";
         }
         else {

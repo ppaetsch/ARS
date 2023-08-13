@@ -56,7 +56,6 @@ public class AnswerController {
      */
     @PostMapping("/Session/{sessionname}/userAnswer")
     public String getAnswer(@PathVariable String sessionname,@RequestParam(name="name") String name, @RequestParam (name="questionId") Integer qid, @RequestParam (name="id") Integer userId, @RequestParam (name="answer") String answer, Model model){
-        System.out.println("Der User mit ID " + userId + " hat für die Session " + sessionname + " zur Frage " + qid + " die Antwort " + answer + " abgegeben.");
         answerService.handleAnswer(sessionname, userId,qid,answer);
         Question question = answerService.getQuestion(sessionname, userId);
         if (question==null){

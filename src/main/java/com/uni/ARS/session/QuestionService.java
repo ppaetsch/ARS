@@ -14,7 +14,6 @@ public class QuestionService {
     @Async
     public void handleQuestion(String sessionname, Integer userId, String username, String question){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        System.out.println("Question Service: session " + arsSession.getName());
         arsSession.setQuestion(userId, username, question);
     }
 }

@@ -13,7 +13,6 @@ public class AnswerService {
 
     public Question getQuestion(String sessionname, Integer userId){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        System.out.println("Question Service: session " + arsSession.getName());
         Question question = arsSession.getQuestion(userId);
         return question;
     }
@@ -22,7 +21,6 @@ public class AnswerService {
     //@Async
     public void handleAnswer(String sessionname, Integer userId, Integer qid, String answer){
         ARSSession arsSession = arsSessionHandler.getSession(sessionname);
-        System.out.println("Answer Service: session " + arsSession.getName());
         arsSession.setAnswer(userId, qid,answer);
     }
 

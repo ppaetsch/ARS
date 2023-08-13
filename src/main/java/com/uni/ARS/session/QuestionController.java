@@ -25,7 +25,6 @@ public class QuestionController {
      */
     @PostMapping("/Session/{sessionname}/userQuestion")
     public String getQuestion(@PathVariable String sessionname, @RequestParam (name="name") String name, @RequestParam (name="question") String question, @RequestParam (name="id") Integer userId, Model model){
-        System.out.println("sess: " + sessionname + " user: " + name + " q: " + question);
         questionService.handleQuestion(sessionname, userId, name, question);
         model.addAttribute("userId", userId);
         model.addAttribute("user", name);

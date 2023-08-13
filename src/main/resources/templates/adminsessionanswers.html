@@ -7,21 +7,24 @@
     <input type="hidden" th:value="${sessionname}" name="sessionname">
     <button type="submit" value="getAnswers" name="answerlist" style="width:100%">Antwort Liste abrufen</button>
 </form>
-<table style="width:100%">
-    <tr th:each="user:${users}">
-        <td style="text-align:center; width:50%"><span th:text="${user.id}"> UserId </span></td>
-        <td style="text-align:center; width:50%"><span th:text="${user.name}"> User </span></td>
-    </tr>
-</table>
+
 
 <table style="width:100%">
     <tr th:each="card:${cards}">
-        <td style="text-align:center; width:50%"><span th:text="${card.question.value}"> Question </span></td>
         <td>
-            <table>
-                <tr th:each="answer: ${card.answerEvaluationMap}">
-                    <td th:text="${answer.value.value}"/>
-                    <td th:text="${answer.value.user}"/>
+            <table style="width:100%">
+                <tr>
+                <td style="text-align:center; width:50%" th:text="${card.question.value}"/>
+                <td style="text-align:center; width:100%" th:text="${card.question.user}"/>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table style="width:100%">
+                <tr th:each="answer:${card.answerEvaluationMap}">
+                    <td style="text-align:center; width:50%" th:text="${answer.value.value}"/>
+                    <td style="text-align:center; width:100%" th:text="${answer.value.user}"/>
+                </tr>
             </table>
         </td>
     </tr>
@@ -29,9 +32,8 @@
 <br><br>
 
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
-    <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
     <input type="hidden" value="Evaluation" name="name">
-    <button type="submit" value="Evaluation" name="evaluation" style="width:100%">Zu Evaluationen übergehen</button>
+    <button type="submit" value="Evaluation" name="evaluation" style="width:100%">Zu Evaluationen uebergehen</button>
 </form>
 </body>
 <body th:insert="~{footer :: footer}"></body>

@@ -8,6 +8,8 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.uni.ARS.cards.QACardRepository;
 import com.uni.ARS.session.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
@@ -40,9 +42,10 @@ public class MainMenuController {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    Logger logger = LoggerFactory.getLogger(MainMenuController.class);
+
     @GetMapping("/MainMenu")
     public String getMainMenu(){
-        System.out.println("Start Main Menu");
         return "";
     }
 
@@ -65,7 +68,6 @@ public class MainMenuController {
     @PostMapping("/SessionCreate")
     public String createSession(@RequestParam(name="sessionname") String sessionname, @RequestParam(name="name") String name, Model model) throws IOException, WriterException {
         Admin admin = adminRepository.findByName(name);
-        System.out.println("Admin heißt: " + admin.getName());
         model.addAttribute("name", name);
         if(admin != null){
             List<String> ses = mongoTemplate.query(Session.class).distinct("name").as(String.class).all();
@@ -84,16 +86,18 @@ public class MainMenuController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                logger.trace("Session created successfully: " + sessionname);
                 model.addAttribute("encoded", encoded);
                 model.addAttribute("sessionurl", sessionurl);
                 return "session.html";
             }
             else {
-                model.addAttribute("sessionfailed", true);;
+                model.addAttribute("sessionfailed", true);
+                logger.warn("Session create failed: Session " + sessionname + " already exists");
             }
         }
         else {
-            System.out.println("Admin nicht gefunden");
+            logger.warn("Session create failed: Admin " + admin.getName() + " not found");
 
         }
         return "sessionstart.html";

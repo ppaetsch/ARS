@@ -83,7 +83,6 @@ public class ARSSession {
         Question question1 = new Question(question, username);
         Integer id = dataHandler.insertQuestion(question1, name);
         users.get(userId).getQuestions().add(id);
-        System.out.println("Hinzufügen erfolgreich Session");
     }
 
     public Question getQuestion(Integer userId){
@@ -113,7 +112,6 @@ public class ARSSession {
         Answer answer1 = new Answer(answer, user.getName());
         Integer id = dataHandler.insertAnswer(answer1, qid);
         users.get(userId).getAnswers().put(id, qid);
-        System.out.println("Antwort Hinzufügen erfolgreich Session");
     }
 
     public QACard getDataForEvaluation(Integer userId) {
@@ -136,17 +134,13 @@ public class ARSSession {
         Evaluation answerEvaluation = new Evaluation(evala, user.getName());
         Integer idAnswer = dataHandler.insertEvaluationAnswer(answerEvaluation, questionId, answerId);
         users.get(userId).getEvaluationsAnswers().put(idAnswer, answerId);
-        System.out.println("evala in ARS Session");
 
         Evaluation questionEvaluation = new Evaluation(evalq, user.getName());
         Integer idQuestion = dataHandler.insertEvaluationQuestion(questionEvaluation, questionId);
         users.get(userId).getEvaluationsQuestions().put(idQuestion, questionId);
-        System.out.println("evalq in ARS Session");
     }
 
     public void changeState(){
-        System.out.println(state.toString());
-        System.out.println(state.getNextState());
         state = state.getNextState();
     }
 

@@ -1,5 +1,7 @@
 package com.uni.ARS.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    Logger logger = LoggerFactory.getLogger(AdminController.class);
+
     /**
      * Gets admin name and password and checks with database, if correct
      *
@@ -28,17 +32,18 @@ public class AdminController {
     public String postLogin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
         if(admin == null){
+            logger.warn("User login failed: User " + name + " not existing");
             model.addAttribute("name",name);
             model.addAttribute("failed",true);
             return "index.html";
         }
         else {
             if (name.equals(admin.getName())&& pwd.equals(admin.getPassword())){
-                System.out.println("Name: " + admin.getName() + " pwd: " + admin.getPassword());
                 model.addAttribute("name",name);
                 return "mainmenu.html";
             }
             else {
+                logger.warn("User login failed: password incorrect. User: " + name);
                 model.addAttribute("failed2", true);
                 return "index.html";
             }
@@ -63,6 +68,7 @@ public class AdminController {
     public String addAdmin(@RequestParam(name="name") String name, @RequestParam(name="pwd") String pwd, Model model){
         Admin admin = adminRepository.findByName(name);
         if(admin == null){
+            logger.trace("User " + name + " register complete");
             Admin admin1 = adminService.registerAdmin(name, pwd);
             Admin adminObj = adminRepository.save(admin1);
             model.addAttribute("name",adminObj.getName());
@@ -70,6 +76,7 @@ public class AdminController {
             return "index.html";
         }
         else {
+            logger.warn("Register failed: User already exists");
             model.addAttribute("failed",true);
             return "register.html";
         }
@@ -88,6 +95,7 @@ public class AdminController {
     public String changePassword(@RequestParam(name="name") String name, @RequestParam(name="oldpwd") String oldpwd, @RequestParam(name="newpwd") String newpwd, Model model){
         model.addAttribute("name",name);
         if (oldpwd.equals(newpwd)){
+            logger.warn("Password change for user " + name + " failed: old password is identical to new password");
             model.addAttribute("failed",true);
             return "settings.html";
         }
@@ -100,6 +108,7 @@ public class AdminController {
                 return "settings.html";
             }
             else {
+                logger.warn("Password change for user " + name + " failed: old password is incorrect");
                 model.addAttribute("failed2",true);
                 return "settings.html";
             }

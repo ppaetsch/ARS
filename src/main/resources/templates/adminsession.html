@@ -14,7 +14,6 @@
 <br><br>
 <table style="width:100%">
     <tr th:each="user:${users}">
-        <td style="text-align:center; width:50%"><span th:text="${user.id}"> UserId </span></td>
         <td style="text-align:center; width:50%"><span th:text="${user.name}"> User </span></td>
     </tr>
 </table>
@@ -28,9 +27,8 @@
 <br><br>
 
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
-    <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
     <input type="hidden" value="Answers" name="name">
-    <button type="submit" value="Session starten" name="sessionstart" style="width:100%">Zu Antworten übergehen</button>
+    <button type="submit" value="Answers" name="answers" style="width:100%">Zu Antworten uebergehen</button>
 </form>
 
 </body>

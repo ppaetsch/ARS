@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{header :: head}"></head>
-<body th:insert="~{headline :: headline}"></body>
 <head>
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -27,6 +26,7 @@
     })
 </script>
 </head>
+<body th:insert="~{headline :: headline}"></body>
 <body>
 
 <p th:if="${error == true}" style="text-align:center">Keine Frage verfügbar, bitte warten</p>

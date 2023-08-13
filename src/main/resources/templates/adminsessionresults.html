@@ -46,7 +46,6 @@
     </th:block>
 
 <form th:action="@{/notifychange/{path} (path=${sessionname})}" method="post">
-  <!--<form th:action="@{/Session/admin/{path}/start (path=${sessionname})}" method="post">-->
   <input type="hidden" value="StoreData" name="name">
   <button type="submit" value="StoreData" name="storedata" style="width:100%">Session speichern</button>
 </form>
