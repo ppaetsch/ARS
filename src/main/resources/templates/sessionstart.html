@@ -18,6 +18,10 @@
     </table>
     <span th:if="${sessionfailed == true}">Session existiert bereits, bitte neuen Namen vergeben</span>
 </form>
+<form th:action="@{/MainMenu}" method="post">
+    <input type="hidden" th:value="${name}" name="name">
+    <Button type="submit" value="Zurück" id="back">Zurück</Button>
+</form>
 </body>
 <body th:insert="~{footer :: footer}"></body>
 </html>

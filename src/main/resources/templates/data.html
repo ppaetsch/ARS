@@ -19,12 +19,8 @@
     <form th:action="@{/Data/getData}" method="post">
         <input type="hidden" th:value="${name}" name="name">
         <input type="text"  name="sessionname" placeholder="Session Name">
-        <Button type="submit" value="getData" id="getData">Daten laden</Button>
-    </form>
-    <form th:action="@{/Data/deleteData}" method="post">
-        <input type="hidden" th:value="${name}" name="name">
-        <input type="text"  name="sessionname" placeholder="Session Name">
-        <Button type="submit" value="deleteData" id="deleteData">Daten loeschen</Button>
+        <Button type="submit" value="getData" formaction="/Data/getData" id="getData">Daten laden</Button>
+        <Button type="submit" value="deleteData" formaction="/Data/deleteData" id="deleteData">Daten loeschen</Button>
     </form>
 </div>
 
@@ -71,7 +67,10 @@
         </div>
     </th:block>
 
-
+<form th:action="@{/MainMenu}" method="post">
+    <input type="hidden" th:value="${name}" name="name">
+    <Button type="submit" value="Zurück" id="back">Zurück</Button>
+</form>
 
 </body>
 <body th:insert="~{footer :: footer}"></body>

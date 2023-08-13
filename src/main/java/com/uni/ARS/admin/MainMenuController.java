@@ -150,8 +150,8 @@ public class MainMenuController {
         return "redirect:/";
     }
 
-    @PostMapping(value = "/MainMenu", params = {"settings"})
-    public String getMainMenuFromSettings(@RequestParam(name="name") String name, Model model){
+    @PostMapping(value = "/MainMenu")
+    public String getBackToMainMenu(@RequestParam(name="name") String name, Model model){
         model.addAttribute("name",name);
         return "mainmenu.html";
     }
